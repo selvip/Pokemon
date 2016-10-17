@@ -2,7 +2,7 @@ class SkillsController < ApplicationController
 	def index
 		@skills = Skill.all
 	end
-<<<<<<< HEAD
+
 	def new
 		@skill = Skill.new
 	end
@@ -37,6 +37,5 @@ class SkillsController < ApplicationController
 			:element_type
 			)
 	end
-=======
->>>>>>> ea5f79120c0a19aaf74a980859c0a6fc666967a7
+
 end
