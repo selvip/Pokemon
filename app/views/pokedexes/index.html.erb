@@ -1,0 +1,37 @@
+<div class="col-sm-12">
+	<table class="table table-inverse">
+		<thead>
+		  <tr class="bg-primary">
+		    <td>#</td>
+		    <td>Name</td>
+		    <td>Base Health Point</td>
+		    <td>Base Attack</td>
+		    <td>Base Defence</td>
+		    <td>Base Speed</td>
+		    <td>Base Element Type</td>
+		    <td colspan="2"><center>Action</center></td>
+		  </tr>
+		</thead>
+		<tbody>
+			<% @pokedexes.each do |pokedex| %>
+				<tr>
+					<th><%= pokedex.id %></th>
+					<td><%= link_to pokedex.name, pokedex %></td>
+					<td><%= pokedex.base_health_point %></td>
+					<td><%= pokedex.base_attack %></td>
+					<td><%= pokedex.base_defence %></td>
+					<td><%= pokedex.base_speed %></td>
+					<td><%= pokedex.element_type %></td>
+					<td><%= link_to 'Edit', edit_pokedex_path(pokedex), class: 'btn btn-default' %></td>
+					<td><center>
+						<%= button_to 'Destroy', pokedex, 
+						method: :delete,
+						class: 'btn btn-danger',
+					  data: { confirm: 'Are you sure?' } %>  	
+				  </center></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<%= link_to 'Add a Pokedex', new_pokedex_path, class: "btn btn-primary"%>
+</div>
