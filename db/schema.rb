@@ -28,12 +28,17 @@ ActiveRecord::Schema.define(version: 20161017093646) do
   end
 
   create_table "skills", force: :cascade do |t|
+<<<<<<< HEAD
     t.string   "name"
     t.integer  "power"
     t.integer  "max_pp"
     t.string   "element_type"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+=======
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+>>>>>>> ea5f79120c0a19aaf74a980859c0a6fc666967a7
   end
 
 end
