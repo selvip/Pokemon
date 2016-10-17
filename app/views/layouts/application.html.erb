@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pokemon</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+   
+  </head>
+
+  <body>
+  	<header class="header header-default">
+  		<div class="navbar navbar-default">
+	  		<div class="container">
+	  			<nav>
+	  				<ul class="nav navbar-nav">
+	  					<li><%= link_to 'Pokemon Game', root_path %></li>
+	  				</ul>
+	  				<ul class="nav navbar-nav navbar-right">
+	  					<li><a href="#">Battle</a></li>
+	  					<li><a href="#">Pokemon</a></li>
+	  					<li><%= link_to 'Pokedex', pokedexes_path %></li>
+	  					<li><%= link_to 'Skill', skills_path %></li>
+	  				</ul>
+	  			</nav>
+	  		</div>
+  		</div>
+  		<div class="container">
+				<%= yield :jumbotron %>
+		</div>
+  	</header>
+  	<main>
+  		<div class="container">
+  			<%= yield %>
+  		</div>
+  	</main>
+  	
+    <footer id="footer" class="footer navbar-inverse">
+	  <div class="container">
+	  	<div class="col-sm-12">
+	    	<address>
+	      	<strong>Copyright &copy Selvi Pebrina <span class="glyphicon glyphicon-user" aria-hidden="true"></span></strong><br />
+	        Jakarta, Indonesia <span class="glyphicon glyphicon-home" aria-hidden="true"></span><br />
+	        (123) 456-7890 <span class="glyphicon glyphicon-phone" aria-hidden="true"></span><br />
+	        <a href="mailto:#">admin@pokemon.rain.bow </a><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+	    	</address>
+	  	</div>
+		</div>
+	</footer>
+   <%= javascript_include_tag 'application' %>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<% content_for :jumbotron do %>
+	<div class="col-sm-12">
+		<div class="jumbotron center-block">
+			<h1>Attack</h1>
+		</div>
+	</div>
+<% end %>
+
+<div class="col-sm-12">
+	<%= link_to 'Add a skill', new_skill_path, class: 'btn btn-primary' %>
+	<br />
+	<br />
+	<table class="table table-inverse">
+		<thead>
+			<tr class="bg-primary">
+				<td>#</td>
+				<td>Name</td>
+				<td>Power</td>
+				<td>Max PP</td>
+				<td>Element Type</td>
+				<td colspan="2"><center>Action</center></td>
+			</tr>
+		</thead>
+		<tbody>
+			<% @skills.each do |skill| %>
+				<tr>
+					<th><%= skill.id %></th>
+					<td><%= link_to skill.name, skill %></td>
+					<td><%= skill.power %></td>
+					<td><%= skill.max_pp %></td>
+					<td><%= skill.element_type %></td>
+					<td><%= link_to 'Edit', edit_skill_path(skill), class: 'btn btn-default' %></td>
+					<td>
+						<%= button_to 'Destroy', skill, method: :delete,
+						class: 'btn btn-danger',
+						data: { confirm: 'Are you sure?' } %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
