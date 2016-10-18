@@ -1,15 +1,25 @@
+<% content_for :jumbotron do %>
+	<div class="col-sm-12">
+		<div class="jumbotron center-block">
+			<h1>Pokedex</h1>
+		</div>
+	</div>
+<% end %>
+
 <div class="col-sm-12">
+<%= link_to 'Add a Pokedex', new_pokedex_path, class: "btn btn-primary"%>
+	<br /><br />
 	<table class="table table-inverse">
 		<thead>
 		  <tr class="bg-primary">
-		    <td>#</td>
-		    <td>Name</td>
-		    <td>Base Health Point</td>
-		    <td>Base Attack</td>
-		    <td>Base Defence</td>
-		    <td>Base Speed</td>
-		    <td>Base Element Type</td>
-		    <td colspan="2"><center>Action</center></td>
+		    <th>#</th>
+		    <th>Name</th>
+		    <th>Base Health Point</th>
+		    <th>Base Attack</th>
+		    <th>Base Defence</th>
+		    <th>Base Speed</th>
+		    <th>Base Element Type</th>
+		    <th colspan="2"><center>Action</center></th>
 		  </tr>
 		</thead>
 		<tbody>
@@ -33,5 +43,5 @@
 			<% end %>
 		</tbody>
 	</table>
-	<%= link_to 'Add a Pokedex', new_pokedex_path, class: "btn btn-primary"%>
+	
 </div>

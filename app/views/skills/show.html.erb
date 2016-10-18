@@ -1,43 +1,30 @@
-<% content_for :jumbotron do %>
-	<div class="col-sm-12">
-		<div class="jumbotron center-block">
-			<h1>Pokedex Show</h1>
-		</div>
-	</div>
-<% end %>
-
-<div class="col-sm-3">
-	<%= image_tag @pokedex.image_url %>
-</div>
-<div class="col-sm-9">
+<div class="col-sm-6">
+<ul class="list-inline">
+	<li><%= link_to 'Edit', edit_skill_path(@skill), class: 'btn btn-primary' %></li>
+	<li><%= button_to 'Delete', @skill, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure?'} %></li>
+</ul>
 <table class="table table-inverse">
 	<tr>
-		<td class="bg-primary">#</td>
-		<td><%= @pokedex.id %></td>
+		<td class="bg-primary" width="50%">#</td>
+		<td><%= @skill.id %></td>
 	</tr>
 	<tr>
 		<td class="bg-primary">Name</td>
-		<td><%= @pokedex.name %></td>
+		<td><%= @skill.name %></td>
 	</tr>
 	<tr>
-		<td class="bg-primary">Health Point</td>
-		<td><%= @pokedex.base_health_point %></td>
+		<td class="bg-primary">Power</td>
+		<td><%= @skill.power %></td>
 	</tr>
 	<tr>
-		<td class="bg-primary">Attack</td>
-		<td><%= @pokedex.base_attack %></td>
-	</tr>
-	<tr>
-		<td class="bg-primary">Defence</td>
-		<td><%= @pokedex.base_defence %></td>
-	</tr>
-	<tr>
-		<td class="bg-primary">Speed</td>
-		<td><%= @pokedex.base_speed %></td>
+		<td class="bg-primary">Max PP</td>
+		<td><%= @skill.max_pp %></td>
 	</tr>
 	<tr>
 		<td class="bg-primary">Element Type</td>
-		<td><%= @pokedex.element_type %></td>
+		<td><%= @skill.element_type %></td>
 	</tr>
 </table>
 </div>
+
+

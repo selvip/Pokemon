@@ -24,7 +24,13 @@ class SkillsController < ApplicationController
 
 	def update
 		@skill = Skill.find(params[:id])
-		
+		@skill.update(skill_params)
+		if @skill.valid?
+			@skill.save
+			redirect_to @skill
+		else
+			render 'edit'
+		end
 	end
 
 	def show
