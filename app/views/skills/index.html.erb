@@ -1,0 +1,35 @@
+<% content_for :jumbotron do %>
+	<div class="col-sm-12">
+		<div class="jumbotron center-block">
+			<h1>Attack</h1>
+		</div>
+	</div>
+<% end %>
+
+<div class="col-sm-12">
+	<%= link_to 'Add a skill', new_skill_path, class: 'btn btn-primary' %>
+	<br />
+	<br />
+	<table class="table table-inverse">
+		<thead>
+			<tr class="bg-primary">
+				<td>#</td>
+				<td>Name</td>
+				<td>Power</td>
+				<td>Max PP</td>
+				<td>Element Type</td>
+			</tr>
+		</thead>
+		<tbody>
+			<% @skills.each do |skill| %>
+				<tr>
+					<th><%= skill.id %></th>
+					<td><%= link_to skill.name, skill %></td>
+					<td><%= skill.power %></td>
+					<td><%= skill.max_pp %></td>
+					<td><%= skill.element_type %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
