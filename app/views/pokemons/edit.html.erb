@@ -52,6 +52,6 @@
 
 		<%= (content_tag(:div, @pokemon.errors.full_messages_for(:current_experience).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon.errors.include?(:current_experience) %>
 
-		<%= f.submit 'Submit' %>
+		<%= f.submit 'Submit', class: 'btn btn-primary' %>
 	<% end %>
 </div>

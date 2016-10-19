@@ -1,0 +1,52 @@
+<% content_for :jumbotron do %>
+	<div class="col-sm-12">
+		<div class="jumbotron center-block">
+			<h1>Pokemon Battle</h1>
+		</div>
+	</div>
+<% end %>
+
+<div class="col-sm-12">
+<%= link_to 'Add a Pokemon Battle', new_pokemon_battle_path, class: "btn btn-primary"%>
+	<br /><br />
+	<table class="table table-inverse">
+		<thead>
+		  <tr class="bg-primary">
+		    <th>#</th>
+		    <th>Pokemon 1</th>
+		    <th>Pokemon 2</th>
+		    <th>Current Turn</th>
+		    <th>State</th>
+		    <th>Pokemon Winner ID</th>
+		    <th>Pokemon Loser ID</th>
+		    <th>Experience Gain</th>
+		    <th>Pokemon 1 Max Health Point</th>
+		    <th>Pokemon 2 Max Health Point</th>
+		    <th>Action</th>
+		  </tr>
+		</thead>
+		<tbody>
+			<% @pokemon_battles.each do |pokemon_battle| %>
+				<tr>
+					<th><%= link_to pokemon_battle.id, pokemon_battle_path(pokemon_battle) %></th>
+					<td><%= pokemon_battle.pokemon1_id %></td>
+					<td><%= pokemon_battle.pokemon2_id %></td>
+					<td><%= pokemon_battle.current_turn %></td>
+					<td><%= pokemon_battle.state %></td>
+					<td><%= pokemon_battle.pokemon_winner_id %></td>
+					<td><%= pokemon_battle.pokemon_loser_id %></td>
+					<td><%= pokemon_battle.experience_gain %></td>
+					<td><%= pokemon_battle.pokemon1_max_health_point %></td>
+					<td><%= pokemon_battle.pokemon2_max_health_point %></td>
+					<td><center>
+						<%= button_to 'Destroy', pokemon_battle, 
+						method: :delete,
+						class: 'btn btn-danger',
+					  data: { confirm: 'Are you sure?' } %>  	
+				  </center></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	
+</div>

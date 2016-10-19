@@ -28,8 +28,17 @@ ActiveRecord::Schema.define(version: 20161019072307) do
   end
 
   create_table "pokemon_battles", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "pokemon1_id"
+    t.integer  "pokemon2_id"
+    t.integer  "current_turn"
+    t.string   "state"
+    t.integer  "pokemon_winner_id"
+    t.integer  "pokemon_loser_id"
+    t.integer  "experience_gain"
+    t.integer  "pokemon1_max_health_point"
+    t.integer  "pokemon2_max_health_point"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "pokemon_skills", force: :cascade do |t|

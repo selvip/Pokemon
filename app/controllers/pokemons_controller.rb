@@ -19,7 +19,7 @@ class PokemonsController < ApplicationController
 			@pokemon.save
 			redirect_to pokemon_path @pokemon
 		else
-			redirect_to new_pokemon_path, :flash => {:notice => 'Redundant!'}
+			redirect_to new_pokemon_path, :flash => {:notice => 'Name already taken.'}
 		end
 	end
 
@@ -60,7 +60,8 @@ class PokemonsController < ApplicationController
 	private
 	def new_pokemon_params
 		params.require(:pokemon).permit(
-			:pokedex_id
+			:pokedex_id,
+			:name
 			)
 	end
 
@@ -80,7 +81,6 @@ class PokemonsController < ApplicationController
 
 	def set_pokemon_attr
 		pokedex = Pokedex.find(@pokemon.pokedex_id)
-		@pokemon.name = pokedex.name
 		@pokemon.level = 1
 		@pokemon.max_health_point = pokedex.base_health_point
 		@pokemon.current_health_point = pokedex.base_health_point
