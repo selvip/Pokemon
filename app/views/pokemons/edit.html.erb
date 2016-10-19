@@ -1,0 +1,41 @@
+<% content_for :jumbotron do %>
+	<div class="col-sm-12">
+		<div class="jumbotron center-block">
+			<h1>Pokemon Edit</h1>
+		</div>
+	</div>
+<% end %>
+
+<div class="col-sm-4">
+	<%= image_tag @pokedex.image_url, size: "200x200" %>
+</div>
+
+<div class="col-sm-8">
+	<%= form_for @pokemon do |f| %>
+		<%= f.label 'Name', for: 'name' %>
+		<%= f.text_field :name, class: 'form-control form-group'%>
+
+		<%= f.label 'Level', for: 'level' %>
+		<%= f.number_field :level, class: 'form-control form-group'%>
+
+		<%= f.label "Max Health Point", for: 'level' %>
+		<%= f.number_field :max_health_point, class: 'form-control form-group'%>
+
+		<%= f.label 'Current Health Point', for: 'current_health_point' %>
+		<%= f.number_field :current_health_point, class: 'form-control form-group'%>
+
+		<%= f.label 'Attack', for: 'attack' %>
+		<%= f.number_field :attack, class: 'form-control form-group'%>
+
+		<%= f.label 'Defence', for: 'defence' %>
+		<%= f.number_field :defence, class: 'form-control form-group'%>
+
+		<%= f.label 'Speed', for: 'speed' %>
+		<%= f.number_field :speed, class: 'form-control form-group'%>
+
+		<%= f.label 'Current Experience', for: 'current_experience' %>
+		<%= f.number_field :current_experience, class: 'form-control form-group'%>
+
+		<%= f.submit 'Submit' %>
+	<% end %>
+</div>

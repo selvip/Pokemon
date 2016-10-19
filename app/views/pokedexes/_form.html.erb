@@ -1,0 +1,38 @@
+<%= form_for(@pokedex) do |f| %>
+	<%= f.label 'Name', for: 'name' %>
+	<%= f.text_field :name, placeholder: 'Name', class: 'form-control form-group' %>
+	
+	<%= (content_tag(:div, @pokedex.errors.full_messages_for(:name).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokedex.errors.include?(:name) %>
+	
+	<%= f.label 'Health Points', for: 'base_health_point' %>
+	<%= f.number_field :base_health_point, placeholder: 'Health Points', class: 'form-control form-group' %>
+
+	<%= (content_tag(:div, @pokedex.errors.full_messages_for(:base_health_point).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokedex.errors.include?(:base_health_point) %>
+
+	<%= f.label 'Attack Base', for: 'attack' %>
+	<%= f.number_field :base_attack, placeholder: 'Base Attack', class: 'form-control form-group' %>
+
+	<%= (content_tag(:div, @pokedex.errors.full_messages_for(:base_attack).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokedex.errors.include?(:base_attack) %>
+
+	<%= f.label 'Defence Base', for: 'base_defence' %>
+	<%= f.number_field :base_defence, placeholder: 'Base Defence', class: 'form-control form-group' %>
+
+	<%= (content_tag(:div, @pokedex.errors.full_messages_for(:base_defence).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokedex.errors.include?(:base_defence) %>
+
+	<%= f.label 'Base Speed', for: 'base_speed' %>
+	<%= f.number_field :base_speed, placeholder: 'Base Speed', class: 'form-control form-group' %>
+
+	<%= (content_tag(:div, @pokedex.errors.full_messages_for(:base_speed).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokedex.errors.include?(:base_speed) %>
+
+	<%= f.label 'Element Type', for: 'element_type' %>
+	<%= f.select :element_type, Skill::ELEMENT, {}, {class: 'form-control form-group'} %>
+
+	<%= (content_tag(:div, @pokedex.errors.full_messages_for(:element_type).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokedex.errors.include?(:element_type) %>
+
+	<%= f.label 'Image URL', for: 'image_url' %>
+	<%= f.text_field :image_url, placeholder: 'Image URL', class: 'form-control form-group' %>
+
+	<%= (content_tag(:div, @pokedex.errors.full_messages_for(:image_url).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokedex.errors.include?(:image_url) %>
+
+	<%= f.submit "Add Pokedex", class: "btn btn-primary form-group" %>
+<% end %>

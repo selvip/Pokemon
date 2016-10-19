@@ -1,0 +1,55 @@
+<% content_for :jumbotron do %>
+	<div class="col-sm-12">
+		<div class="jumbotron center-block">
+			<h1>Pokemon</h1>
+		</div>
+	</div>
+<% end %>
+
+<div class="col-sm-12">
+<ul class="list-inline">
+	<li><%= link_to 'Add a Pokemon', new_pokemon_path, class: "btn btn-primary"%></li>
+	<li><%= link_to 'Heal All', "#", class: 'btn btn-success' %></li>
+</ul>
+	<table class="table table-inverse">
+		<thead>
+		  <tr class="bg-primary">
+		    <th>#</th>
+		    <th>Name</th>
+		    <th>Pokedex ID</th>
+		    <th>Level</th>
+		    <th>Max Health Point</th>
+		    <th>Current Health Point</th>
+		    <th>Attack</th>
+		    <th>Defence</th>
+		    <th>Speed</th>
+		    <th>Current Experience</th>
+		    <th colspan="2">Action</th>
+		  </tr>
+		</thead>
+		<tbody>
+			<%  @pokemons.each do |pokemon| %>
+				<tr>
+					<th><%= pokemon.id %></th>
+					<td><%= link_to pokemon.name, pokemon %></td>
+					<td><%= pokemon.pokedex_id %></td>
+					<td><%= pokemon.level %></td>
+					<td><%= pokemon.max_health_point %></td>
+					<td><%= pokemon.current_health_point %></td>
+					<td><%= pokemon.attack %></td>
+					<td><%= pokemon.defence %></td>
+					<td><%= pokemon.speed %></td>
+					<td><%= pokemon.current_experience %></td>
+					<td><%= link_to 'Heal', "#", class: 'btn btn-success' %></td>
+					<td><center>
+						<%= button_to 'Destroy', pokemon, 
+						method: :delete,
+						class: 'btn btn-danger',
+					  data: { confirm: 'Are you sure?' } %>  	
+				  </center></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	
+</div>

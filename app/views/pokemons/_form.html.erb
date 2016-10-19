@@ -1,0 +1,6 @@
+<%= form_for(@pokemon) do |f| %>
+	<%= f.label 'Pokedex', for: 'pokedex_id' %>
+	<%= f.select(:pokedex_id, @list_names_ids, {}, class: 'form-control form-group') %>
+	<br />
+	<%= f.submit 'Add Pokemon', class: 'btn btn-primary form-group' %>
+<% end %>

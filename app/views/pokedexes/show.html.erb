@@ -1,0 +1,44 @@
+<% content_for :jumbotron do %>
+	<div class="col-sm-12">
+		<div class="jumbotron center-block">
+			<h1>Pokedex Show</h1>
+		</div>
+	</div>
+<% end %>
+
+<div class="col-sm-3">
+	<%= image_tag @pokedex.image_url, size: "250x250" %>
+</div>
+
+<div class="col-sm-9">
+<table class="table table-inverse">
+	<tr>
+		<td class="bg-primary">#</td>
+		<td><%= @pokedex.id %></td>
+	</tr>
+	<tr>
+		<td class="bg-primary">Name</td>
+		<td><%= @pokedex.name %></td>
+	</tr>
+	<tr>
+		<td class="bg-primary">Health Point</td>
+		<td><%= @pokedex.base_health_point %></td>
+	</tr>
+	<tr>
+		<td class="bg-primary">Attack</td>
+		<td><%= @pokedex.base_attack %></td>
+	</tr>
+	<tr>
+		<td class="bg-primary">Defence</td>
+		<td><%= @pokedex.base_defence %></td>
+	</tr>
+	<tr>
+		<td class="bg-primary">Speed</td>
+		<td><%= @pokedex.base_speed %></td>
+	</tr>
+	<tr>
+		<td class="bg-primary">Element Type</td>
+		<td><%= @pokedex.element_type %></td>
+	</tr>
+</table>
+</div>
