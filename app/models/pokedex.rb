@@ -19,7 +19,5 @@ class Pokedex < ApplicationRecord
 		presence: true, 
 		length: {	maximum: 45}, 
 		inclusion: {in: Skill::ELEMENT}
-	validates :image_url, 
-		presence: true
 
 end

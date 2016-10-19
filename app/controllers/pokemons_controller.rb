@@ -7,7 +7,9 @@ class PokemonsController < ApplicationController
 	def new
 		@pokemon = Pokemon.new
 		list_pokedexes = Pokedex.all
+	
 		@list_names_ids = list_pokedexes.map { |poke| [poke.name, poke.id]}
+		
 	end
 
 	def create
@@ -15,9 +17,9 @@ class PokemonsController < ApplicationController
 		set_pokemon_attr
 		if @pokemon.valid?
 			@pokemon.save
-			redirect_to @pokemon
+			redirect_to pokemon_path @pokemon
 		else
-			render 'new'
+			redirect_to new_pokemon_path, :flash => {:notice => 'Redundant!'}
 		end
 	end
 
@@ -42,6 +44,7 @@ class PokemonsController < ApplicationController
 		if @pokemon.update_attributes(edit_pokemon_params)
 			redirect_to @pokemon
 		else
+			@pokedex = Pokedex.find(@pokemon.pokedex_id)
 			render 'edit'
 		end
 	end

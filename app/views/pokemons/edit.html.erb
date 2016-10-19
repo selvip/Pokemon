@@ -15,26 +15,42 @@
 		<%= f.label 'Name', for: 'name' %>
 		<%= f.text_field :name, class: 'form-control form-group'%>
 
+		<%= (content_tag(:div, @pokemon.errors.full_messages_for(:name).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon.errors.include?(:name) %>
+
 		<%= f.label 'Level', for: 'level' %>
 		<%= f.number_field :level, class: 'form-control form-group'%>
 
-		<%= f.label "Max Health Point", for: 'level' %>
+		<%= (content_tag(:div, @pokemon.errors.full_messages_for(:level).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon.errors.include?(:level) %>
+
+		<%= f.label "Max Health Point", for: 'max_health_point' %>
 		<%= f.number_field :max_health_point, class: 'form-control form-group'%>
+
+		<%= (content_tag(:div, @pokemon.errors.full_messages_for(:max_health_point).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon.errors.include?(:max_health_point) %>
 
 		<%= f.label 'Current Health Point', for: 'current_health_point' %>
 		<%= f.number_field :current_health_point, class: 'form-control form-group'%>
 
+		<%= (content_tag(:div, @pokemon.errors.full_messages_for(:current_health_point).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon.errors.include?(:current_health_point) %>
+
 		<%= f.label 'Attack', for: 'attack' %>
 		<%= f.number_field :attack, class: 'form-control form-group'%>
+
+		<%= (content_tag(:div, @pokemon.errors.full_messages_for(:attack).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon.errors.include?(:attack) %>
 
 		<%= f.label 'Defence', for: 'defence' %>
 		<%= f.number_field :defence, class: 'form-control form-group'%>
 
+		<%= (content_tag(:div, @pokemon.errors.full_messages_for(:defence).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon.errors.include?(:defence) %>
+
 		<%= f.label 'Speed', for: 'speed' %>
 		<%= f.number_field :speed, class: 'form-control form-group'%>
 
+		<%= (content_tag(:div, @pokemon.errors.full_messages_for(:speed).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon.errors.include?(:speed) %>
+
 		<%= f.label 'Current Experience', for: 'current_experience' %>
 		<%= f.number_field :current_experience, class: 'form-control form-group'%>
+
+		<%= (content_tag(:div, @pokemon.errors.full_messages_for(:current_experience).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon.errors.include?(:current_experience) %>
 
 		<%= f.submit 'Submit' %>
 	<% end %>
