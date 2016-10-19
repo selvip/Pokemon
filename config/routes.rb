@@ -5,6 +5,5 @@ Rails.application.routes.draw do
   resources :pokemons do
   	resources :pokemon_skills
   end
-  
   root 'pages#home'
 end

@@ -21,4 +21,5 @@ class Pokedex < ApplicationRecord
 		inclusion: {in: Skill::ELEMENT}
 	validates :image_url, 
 		presence: true
+
 end

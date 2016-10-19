@@ -25,7 +25,9 @@
 	<%= (content_tag(:div, @pokedex.errors.full_messages_for(:base_speed).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokedex.errors.include?(:base_speed) %>
 
 	<%= f.label 'Element Type', for: 'element_type' %>
+
 	<%= f.select :element_type, Skill::ELEMENT, {}, {class: 'form-control form-group'} %>
+	<%= f.text_field :element_type, placeholder: 'Element Type', class: 'form-control form-group' %>
 
 	<%= (content_tag(:div, @pokedex.errors.full_messages_for(:element_type).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokedex.errors.include?(:element_type) %>
 
@@ -35,4 +37,7 @@
 	<%= (content_tag(:div, @pokedex.errors.full_messages_for(:image_url).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokedex.errors.include?(:image_url) %>
 
 	<%= f.submit "Add Pokedex", class: "btn btn-primary form-group" %>
+
+	<%= f.submit "Post", class: "btn btn-primary form-group" %>
+
 <% end %>

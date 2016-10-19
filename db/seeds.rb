@@ -19,8 +19,7 @@
 	 base_defence: 100, 
 	 base_speed: 100, 
 	 base_health_point: 100, 
-	 element_type: 'Fire')
-	
+	 element_type: 'Fire')	
 	Pokemon.create(
 	pokedex_id: i+1,
 	name: Pokedex.find(i+1).name,
