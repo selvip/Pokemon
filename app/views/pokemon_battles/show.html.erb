@@ -18,11 +18,17 @@
 			<td class="bg-danger">Skills</td>
 			<th>
 				<% @pokemon1.skills.each do |skill| %>
-					<%= skill.name %>
+					<%= skill.element_type %>
+					(<%= skill.max_pp %>/
+					<%= skill.max_pp %>)
 				<% end %>
 			</th>
 		</tr>
 	</table>
+	<ul class="list-inline">
+		<li><%= button_to "Attack", "#", class: 'btn btn-danger' %></li>
+		<li><%= button_to "Surrender", "#", class: 'btn btn-info' %></li>
+	</ul>
 </div>
 <div class="col-sm-2">
 	<h1>VS</h1>
@@ -47,9 +53,15 @@
 			<td class="bg-info">Skills</td>
 			<th>
 				<% @pokemon1.skills.each do |skill| %>
-					<%= skill.name %>
+					<%= skill.element_type %>
+					(<%= skill.max_pp %>/
+					<%= skill.max_pp %>)
 				<% end %>
 			</th>
 		</tr>
 	</table>
+	<ul class="list-inline">
+		<li><%= button_to "Attack", "#", class: 'btn btn-danger' %></li>
+		<li><%= button_to "Surrender", "#", class: 'btn btn-info' %></li>
+	</ul>
 </div>
