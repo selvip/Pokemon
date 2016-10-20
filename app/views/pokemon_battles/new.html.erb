@@ -13,12 +13,15 @@
 	</div>
 	<div class="col-sm-2">
 		<center>
-			<h1>VS</h1>
+			<%= image_tag "http://static.comicvine.com/uploads/original/13/135728/4521099-9366942388-44897.png", size: "100x100"%>
 			<%= f.submit 'Battle!', class: 'btn btn-danger'%>
 		</center>
 	</div>
 	<div class="col-sm-5">
 		<%= f.label 'Select Pokemon 2', for: 'pokemon2_id' %>
 		<%= f.select(:pokemon2_id, @list_pokemons, {}, {class: 'form-control form-group'}) %>
+	</div>
+	<div class="col-sm-12">
+		<%= (content_tag(:div, @pokemon_battle.errors.full_messages.to_sentence , class: 'alert alert-danger', role: 'alert')) unless @pokemon_battle.errors.empty? %>
 	</div>
 <% end %>

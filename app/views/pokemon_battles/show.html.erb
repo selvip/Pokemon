@@ -30,8 +30,8 @@
 		<li><%= button_to "Surrender", "#", class: 'btn btn-info' %></li>
 	</ul>
 </div>
-<div class="col-sm-2">
-	<h1>VS</h1>
+<div class="col-sm-2" id="versus">
+	<%= image_tag "http://static.comicvine.com/uploads/original/13/135728/4521099-9366942388-44897.png", size: "100x100"%>
 </div>
 <div class="col-sm-5">
 
@@ -40,19 +40,19 @@
 	<table class="table table-bordered">
 		<tr>
 			<td class="bg-info" width="50%">Name</td>
-			<th><%= @pokemon1.name %></th>
+			<th><%= @pokemon2.name %></th>
 		</tr>
 		<tr>
 			<td class="bg-info">HP</td>
-			<th><%= @pokemon1.current_health_point %>
+			<th><%= @pokemon2.current_health_point %>
 				/
-				<%= @pokemon1.max_health_point %>
+				<%= @pokemon2.max_health_point %>
 			</th>
 		</tr>
 		<tr>
 			<td class="bg-info">Skills</td>
 			<th>
-				<% @pokemon1.skills.each do |skill| %>
+				<% @pokemon2.skills.each do |skill| %>
 					<%= skill.element_type %>
 					(<%= skill.max_pp %>/
 					<%= skill.max_pp %>)

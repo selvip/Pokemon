@@ -19,7 +19,7 @@ class PokemonsController < ApplicationController
 			@pokemon.save
 			redirect_to pokemon_path @pokemon
 		else
-			redirect_to new_pokemon_path, :flash => {:notice => 'Name already taken.'}
+			redirect_to new_pokemon_path, :flash => {:danger => 'Name already taken.'}
 		end
 	end
 

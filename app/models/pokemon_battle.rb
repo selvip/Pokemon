@@ -1,5 +1,5 @@
 class PokemonBattle < ApplicationRecord
-	belongs_to :pokemons
+	#belongs_to :pokemons
 	validates :pokemon1_id, presence: true
 	validates :pokemon2_id, presence: true
 	# validates :current_turn, presence: true

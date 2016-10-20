@@ -15,6 +15,7 @@ class PokemonBattlesController < ApplicationController
 			@pokemon_battle.save
 			redirect_to @pokemon_battle
 		else
+			@list_pokemons = Pokemon.all.map { |poke| [poke.name, poke.id] }
 			render 'new'
 		end
 	end
@@ -40,7 +41,7 @@ class PokemonBattlesController < ApplicationController
 	end
 	def set_pokemon_battle_attr
 		@pokemon_battle.current_turn = 0
-		@pokemon_battle.state = "Before"
+		@pokemon_battle.state = "Ongoing"
 		@pokemon_battle.pokemon_winner_id = 0
 		@pokemon_battle.pokemon_loser_id = 0
 		@pokemon_battle.experience_gain = 0
