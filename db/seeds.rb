@@ -46,40 +46,44 @@
 		power: 50, 
 		max_pp: 15, 
 		element_type: 'psychic')
-
+	Skill.create(
+		name: "Thunderbolt", 
+		power: 90, 
+		max_pp: 15, 
+		element_type: 'electro')
 
 	Pokedex.create(
 	 image_url: "http://cdn.bulbagarden.net/upload/thumb/2/21/001Bulbasaur.png/250px-001Bulbasaur.png",
 	 name: "Bulbasaur",
 	 base_attack: 49, 
 	 base_defence: 49, 
-	 base_speed: 65, 
+	 base_speed: 45, 
 	 base_health_point: 45, 
 	 element_type: 'grass')
 	Pokedex.create(
 	 image_url: "http://cdn.bulbagarden.net/upload/thumb/3/39/007Squirtle.png/250px-007Squirtle.png",
 	 name: "Squirtle",
-	 base_attack: 100, 
-	 base_defence: 100, 
-	 base_speed: 100, 
+	 base_attack: 48, 
+	 base_defence: 65, 
+	 base_speed: 43, 
 	 base_health_point: 44, 
-	 element_type: 'dark')
+	 element_type: 'water')
 	Pokedex.create(
-	 image_url: "http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest?cb=20150418234807",
-	 name: "Sebut Saja Pokedex #{i}",
-	 base_attack: 100, 
-	 base_defence: 100, 
-	 base_speed: 100, 
-	 base_health_point: 100, 
-	 element_type: 'dark')	
-	Pokemon.create(
-	pokedex_id: i+1,
-	name: Pokedex.find(i+1).name,
-	level: 1,
-	max_health_point: Pokedex.find(i+1).base_health_point,
-	current_health_point: Pokedex.find(i+1).base_health_point,
-	attack: Pokedex.find(i+1).base_attack,
-	defence: Pokedex.find(i+1).base_defence,
-	speed: Pokedex.find(i+1).base_speed,
-	current_experience: 0)
+	 image_url: "http://cdn.bulbagarden.net/upload/thumb/c/cd/011Metapod.png/250px-011Metapod.png",
+	 name: "Metapod",
+	 base_attack: 20, 
+	 base_defence: 55, 
+	 base_speed: 30, 
+	 base_health_point: 50, 
+	 element_type: 'bug')
+	Pokedex.create(
+	 image_url: "http://cdn.bulbagarden.net/upload/thumb/0/0d/025Pikachu.png/250px-025Pikachu.png",
+	 name: "Pikachu",
+	 base_attack: 55, 
+	 base_defence: 40, 
+	 base_speed: 90, 
+	 base_health_point: 35, 
+	 element_type: 'electro')
+
+	
 

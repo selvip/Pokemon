@@ -7,9 +7,7 @@ class PokemonsController < ApplicationController
 	def new
 		@pokemon = Pokemon.new
 		list_pokedexes = Pokedex.all
-	
 		@list_names_ids = list_pokedexes.map { |poke| [poke.name, poke.id]}
-		
 	end
 
 	def create

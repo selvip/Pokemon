@@ -7,7 +7,7 @@ class Skill < ApplicationRecord
 			'poison',
 			'ground',
 			'rock',
-			'rug',
+			'bug',
 			'ghost',
 			'steel',
 			'fire',

@@ -362,7 +362,7 @@ class PokemonBattleCalculator
 		}
 	}
 
-	def calculate_damage(attacker_pokemon, defender_pokemon, skill_id)
+	def self.calculate_damage(attacker_pokemon:, defender_pokemon:, skill_id:)
 		sk = Skill.find(skill_id)
 		random_number = rand(85..100)
 		

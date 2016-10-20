@@ -17,21 +17,29 @@
 		<tr>
 			<td class="bg-danger">Skills</td>
 			<th>
-				<% @pokemon1.skills.each do |skill| %>
-					<%= skill.element_type %>
-					(<%= skill.max_pp %>/
-					<%= skill.max_pp %>)
-				<% end %>
+				<%= form_tag(pokemon_battle_attack_path(@pokemon_battle), method: 'post') do %>
+					<select class="form-control form-group" name="skill_id">
+						<% @pokemon1.pokemon_skills.each do |pokemon_skill| %>
+							<option value="<%= pokemon_skill.id %>">
+								<%= "#{pokemon_skill.skill_name} (#{pokemon_skill.current_pp}/#{pokemon_skill.skill_max_pp})" %>
+								</option>
+						<% end %>
+					</select>
+					<input type="hidden" name="attacker_id" value="<%= @pokemon1.id %>">
 			</th>
 		</tr>
 	</table>
 	<ul class="list-inline">
-		<li><%= button_to "Attack", "#", class: 'btn btn-danger' %></li>
-		<li><%= button_to "Surrender", "#", class: 'btn btn-info' %></li>
+		<li><%= submit_tag "Attack", class: 'btn btn-danger' %></li>
+			<% end %>
+		<li><%= link_to "Surrender", "#", class: 'btn btn-info' %></li>
 	</ul>
 </div>
 <div class="col-sm-2" id="versus">
 	<%= image_tag "http://static.comicvine.com/uploads/original/13/135728/4521099-9366942388-44897.png", size: "100x100"%>
+	<p>Turn: <%= @pokemon_battle.current_turn %></p>
+	<p>State: <%= @pokemon_battle.state %></p>
+	<%= (content_tag(:div, flash[:danger] , class: 'alert alert-danger', role: 'alert')) unless flash[:danger].empty? %>
 </div>
 <div class="col-sm-5">
 
@@ -52,16 +60,21 @@
 		<tr>
 			<td class="bg-info">Skills</td>
 			<th>
-				<% @pokemon2.skills.each do |skill| %>
-					<%= skill.element_type %>
-					(<%= skill.max_pp %>/
-					<%= skill.max_pp %>)
-				<% end %>
+				<%= form_tag(pokemon_battle_attack_path(@pokemon_battle), method: 'post') do %>
+					<select class="form-control form-group" name="skill_id">
+						<% @pokemon2.pokemon_skills.each do |pokemon_skill| %>
+							<option value="<%= pokemon_skill.id %>">
+								<%= "#{pokemon_skill.skill_name} (#{pokemon_skill.current_pp}/#{pokemon_skill.skill_max_pp})" %>
+								</option>
+						<% end %>
+					</select>
+					<input type="hidden" name="attacker_id" value="<%= @pokemon2.id %>">
 			</th>
 		</tr>
 	</table>
 	<ul class="list-inline">
-		<li><%= button_to "Attack", "#", class: 'btn btn-danger' %></li>
+		<li><%= submit_tag "Attack", class: 'btn btn-danger' %></li>
+			<% end %>
 		<li><%= button_to "Surrender", "#", class: 'btn btn-info' %></li>
 	</ul>
 </div>
