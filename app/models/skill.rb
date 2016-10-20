@@ -1,24 +1,24 @@
 class Skill < ApplicationRecord
 
 	ELEMENT = [
-			"Normal",
-			"Fire",
-			"Fighting",
-			"Water",
-			"Flying",
-			"Grass",
-			"Poison",
-			"Electric",
-			"Ground",
-			"Psychic",
-			"Rock",
-			"Ice",
-			"Bug",
-			"Dragon",
-			"Ghost",
-			"Dark",
-			"Steel",
-			"Fairy"
+			'normal',
+			'fight',
+			'flying',
+			'poison',
+			'ground',
+			'rock',
+			'rug',
+			'ghost',
+			'steel',
+			'fire',
+			'water',
+			'grass',
+			'electro',
+			'psychic',
+			'ice',
+			'dragon',
+			'dark',
+			'fairy'
 		]
 
 	has_many :pokemon_skills, dependent: :destroy

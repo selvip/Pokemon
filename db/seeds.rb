@@ -11,7 +11,7 @@
 		name: "Skill #{i}", 
 		power: 10, 
 		max_pp: 10, 
-		element_type: 'Grass')
+		element_type: 'grass')
 	Pokedex.create(
 	 image_url: "http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest?cb=20150418234807",
 	 name: "Sebut Saja Pokedex #{i}",
@@ -19,7 +19,7 @@
 	 base_defence: 100, 
 	 base_speed: 100, 
 	 base_health_point: 100, 
-	 element_type: 'Fire')	
+	 element_type: 'dark')	
 	Pokemon.create(
 	pokedex_id: i+1,
 	name: Pokedex.find(i+1).name,
@@ -31,3 +31,4 @@
 	speed: Pokedex.find(i+1).base_speed,
 	current_experience: 0)
 end
+

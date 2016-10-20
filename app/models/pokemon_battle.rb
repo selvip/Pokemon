@@ -1,4 +1,5 @@
 class PokemonBattle < ApplicationRecord
+	include
 	#belongs_to :pokemons
 	validates :pokemon1_id, presence: true
 	validates :pokemon2_id, presence: true
