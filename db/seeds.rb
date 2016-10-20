@@ -6,12 +6,64 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-10.times do |i|
 	Skill.create(
-		name: "Skill #{i}", 
-		power: 10, 
-		max_pp: 10, 
-		element_type: 'grass')
+		name: "Poison Sting", 
+		power: 15, 
+		max_pp: 35, 
+		element_type: 'poison')
+	Skill.create(
+		name: "Leech Life", 
+		power: 20, 
+		max_pp: 15, 
+		element_type: 'bug')
+	Skill.create(
+		name: "Peck", 
+		power: 35, 
+		max_pp: 35, 
+		element_type: 'flying')
+	Skill.create(
+		name: "Rage", 
+		power: 20, 
+		max_pp: 20, 
+		element_type: 'normal')
+	Skill.create(
+		name: "Lick", 
+		power: 30, 
+		max_pp: 30, 
+		element_type: 'ghost')
+	Skill.create(
+		name: "Water Gun", 
+		power: 40, 
+		max_pp: 25, 
+		element_type: 'water')
+	Skill.create(
+		name: "Bite", 
+		power: 60, 
+		max_pp: 25, 
+		element_type: 'dark')
+	Skill.create(
+		name: "Confusion", 
+		power: 50, 
+		max_pp: 15, 
+		element_type: 'psychic')
+
+
+	Pokedex.create(
+	 image_url: "http://cdn.bulbagarden.net/upload/thumb/2/21/001Bulbasaur.png/250px-001Bulbasaur.png",
+	 name: "Bulbasaur",
+	 base_attack: 49, 
+	 base_defence: 49, 
+	 base_speed: 65, 
+	 base_health_point: 45, 
+	 element_type: 'grass')
+	Pokedex.create(
+	 image_url: "http://cdn.bulbagarden.net/upload/thumb/3/39/007Squirtle.png/250px-007Squirtle.png",
+	 name: "Squirtle",
+	 base_attack: 100, 
+	 base_defence: 100, 
+	 base_speed: 100, 
+	 base_health_point: 44, 
+	 element_type: 'dark')
 	Pokedex.create(
 	 image_url: "http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest?cb=20150418234807",
 	 name: "Sebut Saja Pokedex #{i}",
@@ -30,5 +82,4 @@
 	defence: Pokedex.find(i+1).base_defence,
 	speed: Pokedex.find(i+1).base_speed,
 	current_experience: 0)
-end
 
