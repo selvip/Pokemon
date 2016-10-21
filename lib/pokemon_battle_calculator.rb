@@ -385,4 +385,13 @@ class PokemonBattleCalculator
 		experience_gain = random_number * enemy_level
 	end
 
+	def self.level_up?(winner_level:, total_exp:)
+		exp_needed = 2 ** winner_level  * 100
+		if total_exp >= exp_needed
+			level_up = true
+		else
+			level_up = false
+		end
+	end
+
 end
