@@ -16,9 +16,11 @@ class PokemonBattle < ApplicationRecord
 	def check_pokemon_hp_zero
 		@list_pokemons = []
 		Pokemon.all.each { |poke| @list_pokemons << poke if poke.current_health_point > 0 }
-		unless @list_pokemons.include? pokemon1 and @list_pokemons.include? pokemon2
-			errors.add(:pokemon1_id, "Cannot add Pokemon with empty HP.")
-			errors.add(:pokemon2_id, "Cannot add Pokemon with empty HP.")
+		if self.state == "Ongoing"
+			if @list_pokemons.exclude? pokemon1 or @list_pokemons.exclude? pokemon2
+				errors.add(:pokemon1_id, "Cannot add Pokemon with empty HP.")
+				errors.add(:pokemon2_id, "Cannot add Pokemon with empty HP.")
+			end
 		end
 	end
 

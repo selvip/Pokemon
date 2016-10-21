@@ -380,8 +380,9 @@ class PokemonBattleCalculator
 		damage = damage.ceil
 	end
 
-	def print_ok
-		puts  "oke"
+	def self.calculate_experience(enemy_level)
+		random_number = rand(20..150)
+		experience_gain = random_number * enemy_level
 	end
 
 end
