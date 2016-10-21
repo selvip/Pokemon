@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
   resources :pokemon_battles do
   	post 'attack'
+  	post 'surrender'
   end
   root 'pages#home'
 end

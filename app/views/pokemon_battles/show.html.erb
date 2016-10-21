@@ -1,5 +1,9 @@
 <div class="col-sm-5">
-
+	<% if @pokemon_battle.pokemon_winner_id == @pokemon1.id and @pokemon_battle.state == "Finished" %>
+		<h1><%= "WINNER" %></h1>
+	<% elsif @pokemon_battle.state == "Finished" %>
+		<h1><%= "LOSER" %></h1>
+	<% end %>
 	<h2>Pokemon 1</h2>
 	<%= image_tag @pokemon1.pokedex_image, size: "200x200" %>
 	<table class="table table-bordered">
@@ -31,8 +35,13 @@
 	</table>
 	<ul class="list-inline">
 		<li><%= submit_tag "Attack", class: 'btn btn-danger' %></li>
+		<% end %>
+		<li>
+			<%= form_tag(pokemon_battle_surrender_path(@pokemon_battle), method: 'post') do %>
+			<%= submit_tag "Surrender", class: 'btn btn-info' %>
+			<input type="hidden" name="surrender_id" value="<%= @pokemon1.id %>">
 			<% end %>
-		<li><%= link_to "Surrender", "#", class: 'btn btn-info' %></li>
+		</li>
 	</ul>
 </div>
 <div class="col-sm-2" id="versus">
@@ -42,7 +51,11 @@
 	<%= (content_tag(:div, flash[:danger] , class: 'alert alert-danger', role: 'alert')) unless flash[:danger].empty? %>
 </div>
 <div class="col-sm-5">
-
+<% if @pokemon_battle.pokemon_winner_id == @pokemon2.id and @pokemon_battle.state == "Finished" %>
+		<h1><%= "WINNER" %></h1>
+	<% elsif @pokemon_battle.state == "Finished" %>
+		<h1><%= "LOSER" %></h1>
+	<% end %>
 	<h2>Pokemon 2</h2>
 	<%= image_tag @pokemon2.pokedex_image, size: "200x200" %>
 	<table class="table table-bordered">
@@ -74,7 +87,12 @@
 	</table>
 	<ul class="list-inline">
 		<li><%= submit_tag "Attack", class: 'btn btn-danger' %></li>
+		<% end %>
+		<li>
+			<%= form_tag(pokemon_battle_surrender_path(@pokemon_battle), method: 'post') do %>
+			<%= submit_tag "Surrender", class: 'btn btn-info' %>
+			<input type="hidden" name="surrender_id" value="<%= @pokemon2.id %>">
 			<% end %>
-		<li><%= button_to "Surrender", "#", class: 'btn btn-info' %></li>
+		</li>
 	</ul>
 </div>

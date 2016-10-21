@@ -376,7 +376,8 @@ class PokemonBattleCalculator
 		defender_pokedex = defender_pokemon.pokedex
 		weak_rest = ATTACK_DEFEND[attacker_pokedex.element_type.to_sym][defender_pokedex.element_type.to_sym]
 
-		damage = ((((2 * attacker_pokemon.level / 5 + 2) * attacker_pokemon.attack * sk.power / defender_pokemon.defence ) / 50) + 2) * stab * weak_rest * ( random_number * 100)
+		damage = ((((2.00 * attacker_pokemon.level / 5 + 2) * attacker_pokemon.attack * sk.power / defender_pokemon.defence ) / 50) + 2) * stab * weak_rest * ( random_number / 100.0)
+		damage = damage.ceil
 	end
 
 	def print_ok

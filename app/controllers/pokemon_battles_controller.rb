@@ -36,29 +36,19 @@ class PokemonBattlesController < ApplicationController
 	def attack
 		@pokemon_battle = PokemonBattle.find(params[:pokemon_battle_id])
 		get_each_pokemon
-		attacker = Pokemon.find(params[:attacker_id])
-		skill = PokemonSkill.find(params[:skill_id])
+		@attacker = Pokemon.find(params[:attacker_id])
+		@pokemon_skill = PokemonSkill.find(params[:skill_id])
 		if @pokemon_battle.current_turn.odd?
 			if @attacker == @pokemon1
 				@defender = @pokemon2
-				skill.current_pp -= 1
-				skill.save
-				@pokemon_battle.current_turn += 1
-				@pokemon_battle.save
-				flash[:danger] = ""
-				check_win
+				try_to_attack
 			else
 				flash[:danger] = "Pokemon 1 turn."
 			end
 		else
-			if attacker == @pokemon2
-				defender = pokemon1
-				skill.current_pp -= 1
-				skill.save
-				@pokemon_battle.current_turn += 1
-				@pokemon_battle.save
-				flash[:danger] = ""
-				check_win
+			if @attacker == @pokemon2
+				@defender = @pokemon1
+				try_to_attack
 			else
 				flash[:danger] = "Pokemon 2 turn."
 			end
@@ -66,14 +56,56 @@ class PokemonBattlesController < ApplicationController
 		render 'show'
 	end
 
+	def surrender
+		@pokemon_battle = PokemonBattle.find(params[:pokemon_battle_id])
+		get_each_pokemon
+		surrender = Pokemon.find(params[:surrender_id])
+		@pokemon_battle.state = "Finished"
+		
+		if surrender.id == @pokemon2.id
+			@pokemon_battle.pokemon_loser_id = @pokemon2.id
+			@pokemon_battle.pokemon_winner_id = @pokemon1.id
+		else
+			@pokemon_battle.pokemon_loser_id = @pokemon1.id
+			@pokemon_battle.pokemon_winner_id = @pokemon2.id
+		end
+		@pokemon_battle.save
+		render 'show'
+	end
+
 	private
+
+	def try_to_attack
+		@pokemon_skill.current_pp -= 1
+		@pokemon_skill.save
+		
+		@pokemon_battle.current_turn += 1
+		save_pokemon_battle
+		
+		damage = PokemonBattleCalculator.calculate_damage(
+			attacker_pokemon: @attacker, 
+			defender_pokemon: @defender, 
+			skill_id: @pokemon_skill.skill_id)
+		@defender.current_health_point -= damage
+		@defender.save
+
+		flash[:danger] = ""	
+		check_win
+	end
+
+	def save_pokemon_battle
+		@pokemon_battle.save
+	end
+
 	def check_win
 		if @defender.current_health_point <= 0
 			@defender.current_health_point = 0
+			@defender.save
 			@pokemon_battle.state = "Finished"
-			@pokemon_battle.pokemon_winner_id = attacker.id
-			@pokemon_battle.pokemon_loser_id = defender.id
-			@pokemon_battle.save
+			@pokemon_battle.pokemon_winner_id = @attacker.id
+			@pokemon_battle.pokemon_loser_id = @defender.id
+			save_pokemon_battle
+			flash[:danger] = ""
 		end
 	end
 	def pokemon_battle_params
@@ -82,6 +114,11 @@ class PokemonBattlesController < ApplicationController
 									 :pokemon2_id
 									 )
 	end
+
+	def damaging
+
+	end
+
 	def set_pokemon_battle_attr
 		@pokemon_battle.current_turn = 1
 		@pokemon_battle.state = "Ongoing"
