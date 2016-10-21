@@ -137,6 +137,7 @@ class PokemonBattlesController < ApplicationController
 		@attacker.current_experience += @pokemon_battle.experience_gain
 		while PokemonBattleCalculator.level_up?(winner_level: @attacker.level, total_exp: @attacker.current_experience)
 			@attacker.level += 1
+			increase_status
 		end
 		@attacker.save
 

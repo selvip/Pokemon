@@ -394,4 +394,13 @@ class PokemonBattleCalculator
 		end
 	end
 
+	def self.increase_status
+		inc_status = {}
+		inc_status[:health] = rand(10..20)
+		inc_status[:attack] = rand(1..5)
+		inc_status[:defence] = rand(1..5)
+		inc_status[:speed] = rand(1..5)
+		inc_status
+	end
+
 end
