@@ -49,9 +49,9 @@ class PokemonsController < ApplicationController
 
 	def destroy
 		@pokemon = Pokemon.find(params[:id])
-		name = @pokemon.name
+		list_pokemon_battles = PokemonBattle.all.select { |battle| battle if battle.pokemon1_id == @pokemon.id or battle.pokemon2_id == @pokemon.id}
+		list_pokemon_battles.each { |battle| battle.destroy }
 		@pokemon.destroy
-		flash[:notice] = "#{name} removed."
 		redirect_to pokemons_path
 	end
 

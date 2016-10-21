@@ -68,7 +68,7 @@
 		<tr class="bg-primary">
 			<td>Name</td>
 			<td>Power</td>
-			<td>Max PP</td>
+			<td>Current PP</td>
 			<td>Element Type</td>
 			<td>Action</td>
 		</tr>
@@ -78,7 +78,7 @@
 			<tr>
 				<td><%= skill.skill_name %></td>
 				<td><%= skill.skill_power %></td>
-				<td><%= skill.skill_max_pp %></td>
+				<td><%= skill.current_pp %></td>
 				<td><%= skill.skill_element_type %></td>
 				<td><%= button_to '✕', pokemon_pokemon_skill_path(pokemon_id: @pokemon.id, id: skill.id) , method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %></td>
 			</tr>

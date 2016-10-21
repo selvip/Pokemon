@@ -13,5 +13,18 @@ main {
    padding: 50px 0 100px 0;
 }
 #versus img{
-   margin: 50% auto;
+   margin: auto; auto;
+}
+
+#pokemon2{
+   text-align: right;
+}
+#pokemon2 table{
+   text-align: center;
+}
+#pokemon1{
+   text-align: left
+}
+#pokemon1 table{
+   text-align: center;
 }

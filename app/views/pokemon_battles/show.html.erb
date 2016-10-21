@@ -1,26 +1,37 @@
-<div class="col-sm-5">
-	<% if @pokemon_battle.pokemon_winner_id == @pokemon1.id and @pokemon_battle.state == "Finished" %>
-		<h1><%= "WINNER" %></h1>
+<div class="col-sm-12" id="versus">
+	<%= image_tag "vs_image.png", size: "100x100"%>
+	<p>Turn: <%= @pokemon_battle.current_turn %></p>
+	<p><% @pokemon_battle.state %></p>
+	<%= (content_tag(:div, flash[:danger] , class: 'alert alert-danger', role: 'alert')) unless flash[:danger].empty? %>
+</div>
+
+<div class="col-sm-6 btn-danger" id="pokemon1">
+	<h1><% if @pokemon_battle.pokemon_winner_id == @pokemon1.id and @pokemon_battle.state == "Finished" %>
+		<kbd><%= "WINNER" %></kbd>
 	<% elsif @pokemon_battle.state == "Finished" %>
-		<h1><%= "LOSER" %></h1>
-	<% end %>
-	<h2>Pokemon 1</h2>
-	<%= image_tag @pokemon1.pokedex_image, size: "200x200" %>
+		<kbd><%= "LOSER" %></kbd>
+	<% end %></h1>
+	<pre>Pokemon 1</pre>
+	<%= image_tag @pokemon1.pokedex_image, size: "300x300" %>
+	<br /><br />
 	<table class="table table-bordered">
 		<tr>
-			<td class="bg-danger" width="50%">Name</td>
-			<th><%= @pokemon1.name %></th>
+			<td class="bg-primary" width="50%">Name</td>
+			<th class="bg-primary"><%= @pokemon1.name %></th>
 		</tr>
 		<tr>
-			<td class="bg-danger">HP</td>
-			<th><%= @pokemon1.current_health_point %>
+			<td class="bg-primary">HP</td>
+			<th class="bg-primary"><%= @pokemon1.current_health_point %>
 				/
 				<%= @pokemon1.max_health_point %>
 			</th>
 		</tr>
+	</table>
+	<% unless @pokemon_battle.state == "Finished" %>
+	<table class="table table-bordered">
 		<tr>
-			<td class="bg-danger">Skills</td>
-			<th>
+			<td class="bg-primary">Skills</td>
+			<th class="bg-primary">
 				<%= form_tag(pokemon_battle_attack_path(@pokemon_battle), method: 'post') do %>
 					<select class="form-control form-group" name="skill_id">
 						<% @pokemon1.pokemon_skills.each do |pokemon_skill| %>
@@ -43,36 +54,38 @@
 			<% end %>
 		</li>
 	</ul>
-</div>
-<div class="col-sm-2" id="versus">
-	<%= image_tag "http://static.comicvine.com/uploads/original/13/135728/4521099-9366942388-44897.png", size: "100x100"%>
-	<p>Turn: <%= @pokemon_battle.current_turn %></p>
-	<p>State: <%= @pokemon_battle.state %></p>
-	<%= (content_tag(:div, flash[:danger] , class: 'alert alert-danger', role: 'alert')) unless flash[:danger].empty? %>
-</div>
-<div class="col-sm-5">
-<% if @pokemon_battle.pokemon_winner_id == @pokemon2.id and @pokemon_battle.state == "Finished" %>
-		<h1><%= "WINNER" %></h1>
-	<% elsif @pokemon_battle.state == "Finished" %>
-		<h1><%= "LOSER" %></h1>
 	<% end %>
-	<h2>Pokemon 2</h2>
-	<%= image_tag @pokemon2.pokedex_image, size: "200x200" %>
+</div>
+<div class="col-sm-6 bg-primary" id="pokemon2">
+	<h1>
+	<% if @pokemon_battle.pokemon_winner_id == @pokemon2.id and @pokemon_battle.state == "Finished" %>
+		<kbd><%= "WINNER" %></kbd>
+	<% elsif @pokemon_battle.state == "Finished" %>
+		<kbd><%= "LOSER" %></kbd>
+	<% end %>
+	</h1>
+	<pre>Pokemon 2</pre>
+	<%= image_tag @pokemon2.pokedex_image, size: "300x300" %>
+	<br /><br />
 	<table class="table table-bordered">
 		<tr>
-			<td class="bg-info" width="50%">Name</td>
-			<th><%= @pokemon2.name %></th>
+			<td class="btn-danger" width="50%">Name</td>
+			<th class="btn-danger"><%= @pokemon2.name %></th>
 		</tr>
 		<tr>
-			<td class="bg-info">HP</td>
-			<th><%= @pokemon2.current_health_point %>
+			<td class="btn-danger">HP</td>
+			<th class="btn-danger"><%= @pokemon2.current_health_point %>
 				/
 				<%= @pokemon2.max_health_point %>
 			</th>
 		</tr>
+	</table>
+
+	<% unless @pokemon_battle.state == "Finished" %>
+	<table class="table table-bordered">
 		<tr>
-			<td class="bg-info">Skills</td>
-			<th>
+			<td class="btn-danger">Skills</td>
+			<th class="btn-danger">
 				<%= form_tag(pokemon_battle_attack_path(@pokemon_battle), method: 'post') do %>
 					<select class="form-control form-group" name="skill_id">
 						<% @pokemon2.pokemon_skills.each do |pokemon_skill| %>
@@ -95,4 +108,5 @@
 			<% end %>
 		</li>
 	</ul>
+	<% end %>
 </div>

@@ -5,7 +5,8 @@ class PokemonBattlesController < ApplicationController
 
 	def new
 		@pokemon_battle = PokemonBattle.new
-		@list_pokemons = Pokemon.all.map { |poke| [poke.name, poke.id] }
+		@list_pokemons = []
+		Pokemon.all.each { |poke| @list_pokemons << [poke.name, poke.id] if poke.current_health_point > 0 }
 	end
 
 	def create
@@ -38,20 +39,32 @@ class PokemonBattlesController < ApplicationController
 		get_each_pokemon
 		@attacker = Pokemon.find(params[:attacker_id])
 		@pokemon_skill = PokemonSkill.find(params[:skill_id])
-		if @pokemon_battle.current_turn.odd?
-			if @attacker == @pokemon1
-				@defender = @pokemon2
-				try_to_attack
+		if @attacker.pokemon_skills.include? @pokemon_skill
+			if @pokemon_battle.current_turn.odd?
+				if @attacker == @pokemon1
+					@defender = @pokemon2
+					if 	@pokemon_skill.current_pp > 0
+						try_to_attack
+					else
+						flash[:danger] = "Current PP is zero."
+					end
+				else
+					flash[:danger] = "Pokemon 1 turn."
+				end
 			else
-				flash[:danger] = "Pokemon 1 turn."
+				if @attacker == @pokemon2
+					@defender = @pokemon1
+					if 	@pokemon_skill.current_pp > 0
+						try_to_attack
+					else
+						flash[:danger] = "Current PP is zero."
+					end
+				else
+					flash[:danger] = "Pokemon 2 turn."
+				end
 			end
 		else
-			if @attacker == @pokemon2
-				@defender = @pokemon1
-				try_to_attack
-			else
-				flash[:danger] = "Pokemon 2 turn."
-			end
+			flash[:danger] = "Unauthorized skill."
 		end
 		render 'show'
 	end
@@ -60,16 +73,29 @@ class PokemonBattlesController < ApplicationController
 		@pokemon_battle = PokemonBattle.find(params[:pokemon_battle_id])
 		get_each_pokemon
 		surrender = Pokemon.find(params[:surrender_id])
-		@pokemon_battle.state = "Finished"
 		
-		if surrender.id == @pokemon2.id
-			@pokemon_battle.pokemon_loser_id = @pokemon2.id
-			@pokemon_battle.pokemon_winner_id = @pokemon1.id
+		if @pokemon_battle.current_turn.odd?
+			if surrender.id == @pokemon2.id or @pokemon_battle.state == "Finished"
+				flash[:danger] = "Cannot surrender on this turn."
+			else
+				@pokemon_battle.state = "Finished"
+				@pokemon_battle.pokemon_loser_id = @pokemon2.id
+				@pokemon_battle.pokemon_winner_id = @pokemon1.id
+				@pokemon_battle.save
+				flash[:danger] = ""
+			end
 		else
-			@pokemon_battle.pokemon_loser_id = @pokemon1.id
-			@pokemon_battle.pokemon_winner_id = @pokemon2.id
+			if surrender.id == @pokemon1.id or @pokemon_battle.state == "Finished"
+				flash[:danger] = "Cannot surrender on this turn."
+			else
+				@pokemon_battle.state = "Finished"
+				@pokemon_battle.pokemon_loser_id = @pokemon1.id
+				@pokemon_battle.pokemon_winner_id = @pokemon2.id
+				@pokemon_battle.save
+				flash[:danger] = ""
+			end
 		end
-		@pokemon_battle.save
+
 		render 'show'
 	end
 
