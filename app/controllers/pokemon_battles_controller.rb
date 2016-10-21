@@ -135,7 +135,7 @@ class PokemonBattlesController < ApplicationController
 		@pokemon_battle.save
 
 		@attacker.current_experience += @pokemon_battle.experience_gain
-		if PokemonBattleCalculator.level_up?(winner_level: @attacker.level, total_exp: @attacker.current_experience)
+		while PokemonBattleCalculator.level_up?(winner_level: @attacker.level, total_exp: @attacker.current_experience)
 			@attacker.level += 1
 		end
 		@attacker.save
@@ -153,9 +153,6 @@ class PokemonBattlesController < ApplicationController
 	def set_pokemon_battle_attr
 		@pokemon_battle.current_turn = 1
 		@pokemon_battle.state = "Ongoing"
-		@pokemon_battle.pokemon_winner_id = 0
-		@pokemon_battle.pokemon_loser_id = 0
-		@pokemon_battle.experience_gain = 0
 		@pokemon_battle.pokemon1_max_health_point = @pokemon1.max_health_point
 		@pokemon_battle.pokemon2_max_health_point = @pokemon2.max_health_point
 	end

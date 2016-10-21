@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :pokedexes
   resources :skills
   resources :pokemons do
+    post 'heal'
+    get 'heal_all'
   	resources :pokemon_skills
   end
   resources :pokemon_battles do

@@ -1,10 +1,7 @@
 <div class="col-sm-12" id="versus">
-	<%= image_tag "vs_image.png", size: "100x100"%>
-	<p>Turn: <%= @pokemon_battle.current_turn %></p>
-	<p><% @pokemon_battle.state %></p>
+	<%= image_tag "vs_image.png", size: "200x200"%>
 	<%= (content_tag(:div, flash[:danger] , class: 'alert alert-danger', role: 'alert')) unless flash[:danger].empty? %>
 </div>
-
 <div class="col-sm-6 btn-danger" id="pokemon1">
 	<h1><% if @pokemon_battle.pokemon_winner_id == @pokemon1.id and @pokemon_battle.state == "Finished" %>
 		<kbd><%= "WINNER" %></kbd>

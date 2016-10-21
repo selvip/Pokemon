@@ -55,6 +55,20 @@ class PokemonsController < ApplicationController
 		redirect_to pokemons_path
 	end
 
+	def heal
+		@pokemon = Pokemon.find(params[:id])
+		@pokemon.current_health_point = @pokemon.max_health_point
+		@pokemon.save
+	end
+
+	def heal_all
+		@pokemons = Pokemon.all
+		@pokemons.each do |pokemon|
+			pokemon.current_health_point = pokemon.max_health_point
+			pokemon.save
+		end
+	end
+
 	private
 	def new_pokemon_params
 		params.require(:pokemon).permit(

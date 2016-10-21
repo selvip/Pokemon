@@ -2,7 +2,7 @@
 	<%= f.label 'Name', for: 'name' %>
 	<%= f.text_field :name, class: 'form-control form-group' %>
 
-	<%= (content_tag(:div, flash[:danger] , class: 'alert alert-danger', role: 'alert')) if flash[:danger] %>
+	<%= (content_tag(:div, flash[:danger] , class: 'alert alert-danger', role: 'alert')) unless flash[:danger] == nil %>
 
 	<%= f.label 'Pokedex', for: 'pokedex_id' %>
 	<%= f.select(:pokedex_id, @list_names_ids, {}, class: 'form-control form-group') %>
