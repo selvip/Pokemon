@@ -34,57 +34,43 @@ class PokemonBattleEngine
 	private
 
 	def list_surrender_validations?
-		invalidate_state
-		invalidate_turn
-		if validate_state? and validate_turn?
-			flag = true
-		else
-			flag = false
-		end
+		result = []
+		result << validate_state?
+		result << validate_turn?
+		result.all?
 	end
+
 	def list_attack_validations?
-		\invalidate_state?
-		invalidate_current_pp
-		invalidate_pokemon_skill
-		invalidate_turn
-		if validate_state? and validate_current_pp? and validate_pokemon_skill? and validate_turn?
-			flag = true
-		else
-			flag = false
-		end
+		result = []
+		result << validate_state?
+		result << validate_current_pp?
+		result << validate_pokemon_skill?
+		result << validate_turn?
+		result.all?
 	end
-	def invalidate_turn
-		if !validate_turn?
-			@pokemon_battle.validate_attack_odd
-			@pokemon_battle.validate_attack_even
-		end
-	end
-	def invalidate_pokemon_skill
-		if !validate_pokemon_skill?
-			@pokemon_battle.validate_pokemon_skill
-		end
-	end
-	def invalidate_current_pp
-		if !validate_current_pp?
-			@pokemon_skill.validate_current_pp
-		end
-	end
-	
 	def validate_state?
 		if @pokemon_battle.state == "Ongoing"
 			flag = true
 		else
-			pokemon_battle.errors.add(state, "Cannot act at this state.")
+			@pokemon_battle.errors.add(:state, "Cannot act at this state.")
 			flag = false		
 		end
 	end
 	def validate_turn?
 		if @pokemon_battle.current_turn.odd?
-			flag = false
-			flag = true if @attacker.id == @pokemon_battle.pokemon1_id
+			if @attacker.id == @pokemon_battle.pokemon1_id
+				flag = true
+			elsif @attacker.id ==@pokemon_battle.pokemon2_id
+				@pokemon_battle.errors.add(:pokemon2_id, "Pokemon 1's turn.")
+				flag = false			
+			end
 		elsif @pokemon_battle.current_turn.even?
-			flag = false
-			flag = true if @attacker.id == @pokemon_battle.pokemon2_id
+			if @attacker.id == @pokemon_battle.pokemon1_id
+				flag = true
+			elsif @attacker.id ==@pokemon_battle.pokemon2_id
+				flag = false
+				@pokemon_battle.errors.add(:pokemon1_id, "Pokemon2's turn.")			
+			end
 		end
 	end
 	def validate_current_pp?
