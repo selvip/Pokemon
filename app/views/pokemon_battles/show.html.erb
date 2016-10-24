@@ -1,8 +1,9 @@
 <div class="col-sm-12" id="versus">
 	<%= image_tag "vs_image.png", size: "200x200"%>
 	<%= (content_tag(:div, @pokemon_battle.errors.full_messages.to_sentence , class: 'alert alert-danger', role: 'alert')) unless @pokemon_battle.errors.empty? %>
+	<h1 class="turn"><kbd><%= "#{@pokemon_battle.current_turn}" %></kbd></h1>
 </div>
-<div class="col-sm-6 btn-danger" id="pokemon1">
+<div class="col-sm-6" id="pokemon1">
 	<h1><% if @pokemon_battle.pokemon_winner_id == @pokemon1.id and @pokemon_battle.state == "Finished" %>
 		<kbd><%= "WINNER" %></kbd>
 	<% elsif @pokemon_battle.state == "Finished" %>
@@ -40,20 +41,25 @@
 					<input type="hidden" name="attacker_id" value="<%= @pokemon1.id %>">
 			</th>
 		</tr>
+		<tr>
+			<td colspan="2">	
+				<ul class="list-inline">
+					<li><%= submit_tag "Attack", class: 'btn btn-danger' %></li>
+					<% end %>
+					<li>
+						<%= form_tag(pokemon_battle_surrender_path(@pokemon_battle), method: 'post') do %>
+						<%= submit_tag "Surrender", class: 'btn btn-warning' %>
+						<input type="hidden" name="surrender_id" value="<%= @pokemon1.id %>">
+						<% end %>
+					</li>
+					<li><%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon1_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon_battle.errors.include?(:pokemon1_id) %></li>
+				</ul>
+			</td>
+		</tr>
 	</table>
-	<ul class="list-inline">
-		<li><%= submit_tag "Attack", class: 'btn btn-danger' %></li>
-		<% end %>
-		<li>
-			<%= form_tag(pokemon_battle_surrender_path(@pokemon_battle), method: 'post') do %>
-			<%= submit_tag "Surrender", class: 'btn btn-info' %>
-			<input type="hidden" name="surrender_id" value="<%= @pokemon1.id %>">
-			<% end %>
-		</li>
-	</ul>
 	<% end %>
 </div>
-<div class="col-sm-6 bg-primary" id="pokemon2">
+<div class="col-sm-6" id="pokemon2">
 	<h1>
 	<% if @pokemon_battle.pokemon_winner_id == @pokemon2.id and @pokemon_battle.state == "Finished" %>
 		<kbd><%= "WINNER" %></kbd>
@@ -66,12 +72,12 @@
 	<br /><br />
 	<table class="table table-bordered">
 		<tr>
-			<td class="btn-danger" width="50%">Name</td>
-			<th class="btn-danger"><%= @pokemon2.name %></th>
+			<td width="50%">Name</td>
+			<th><%= @pokemon2.name %></th>
 		</tr>
 		<tr>
-			<td class="btn-danger">HP</td>
-			<th class="btn-danger"><%= @pokemon2.current_health_point %>
+			<td>HP</td>
+			<th><%= @pokemon2.current_health_point %>
 				/
 				<%= @pokemon2.max_health_point %>
 			</th>
@@ -81,8 +87,8 @@
 	<% unless @pokemon_battle.state == "Finished" %>
 	<table class="table table-bordered">
 		<tr>
-			<td class="btn-danger">Skills</td>
-			<th class="btn-danger">
+			<td>Skills</td>
+			<th>
 				<%= form_tag(pokemon_battle_attack_path(@pokemon_battle), method: 'post') do %>
 					<select class="form-control form-group" name="skill_id">
 						<% @pokemon2.pokemon_skills.each do |pokemon_skill| %>
@@ -94,16 +100,21 @@
 					<input type="hidden" name="attacker_id" value="<%= @pokemon2.id %>">
 			</th>
 		</tr>
+		<tr>
+			<td colspan="2">
+				<ul class="list-inline">
+					<li><%= submit_tag "Attack", class: 'btn btn-danger' %></li>
+					<% end %>
+					<li>
+						<%= form_tag(pokemon_battle_surrender_path(@pokemon_battle), method: 'post') do %>
+						<%= submit_tag "Surrender", class: 'btn btn-warning' %>
+						<input type="hidden" name="surrender_id" value="<%= @pokemon2.id %>">
+						<% end %>
+					</li>
+					<li><%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon1_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon_battle.errors.include?(:pokemon1_id) %></li>
+				</ul>
+			</td>
+		</tr>
 	</table>
-	<ul class="list-inline">
-		<li><%= submit_tag "Attack", class: 'btn btn-danger' %></li>
-		<% end %>
-		<li>
-			<%= form_tag(pokemon_battle_surrender_path(@pokemon_battle), method: 'post') do %>
-			<%= submit_tag "Surrender", class: 'btn btn-info' %>
-			<input type="hidden" name="surrender_id" value="<%= @pokemon2.id %>">
-			<% end %>
-		</li>
-	</ul>
 	<% end %>
 </div>

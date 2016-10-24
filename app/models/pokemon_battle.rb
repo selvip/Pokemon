@@ -32,6 +32,22 @@ class PokemonBattle < ApplicationRecord
 		end
 	end
 
+	def validate_attack_odd
+		if self.current_turn.even?
+			errors.add(:current_turn, "Pokemon 1's turn")
+		end
+	end
+
+	def validate_attack_even
+		if self.current_turn.odd?
+			errors.add(:current_turn, "Pokemon 2's turn")
+		end
+	end
+
+	def validate_pokemon_skill
+		errors.add(:skill_id, "Unauthorized skill.")
+	end
+
 	def pokemon1_name
 		pokemon1.name
 	end

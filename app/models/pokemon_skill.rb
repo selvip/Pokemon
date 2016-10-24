@@ -26,4 +26,10 @@ class PokemonSkill < ApplicationRecord
 	def skill_element_type
 		skill.element_type
 	end
+
+	def validate_current_pp
+		if self.current_pp <= 0
+			errors.add(:current_pp, "Current PP is 0.")
+		end
+	end
 end

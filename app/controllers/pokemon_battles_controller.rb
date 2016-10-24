@@ -29,111 +29,34 @@ class PokemonBattlesController < ApplicationController
 	end
 
 	def show
-		flash[:danger] = ""
 		@pokemon_battle = PokemonBattle.find(params[:id])
 		get_each_pokemon
 	end
 
 	def attack
 		@pokemon_battle = PokemonBattle.find(params[:pokemon_battle_id])
-		get_each_pokemon
-		if @pokemon_battle.state == "Finished"
-			flash[:danger] = "Finished already."
-		else
-			@attacker = Pokemon.find(params[:attacker_id])
-			@pokemon_skill = PokemonSkill.find(params[:skill_id])
-			if @attacker.pokemon_skills.include? @pokemon_skill
-				if @pokemon_battle.current_turn.odd?
-					if @attacker == @pokemon1
-						@defender = @pokemon2
-						if 	@pokemon_skill.current_pp > 0
-							try_to_attack
-						else
-							flash[:danger] = "Current PP is zero."
-						end
-					else
-						flash[:danger] = "Pokemon 1 turn."
-					end
-				else
-					if @attacker == @pokemon2
-						
-						@defender = @pokemon1
-						if 	@pokemon_skill.current_pp > 0
 
-							try_to_attack
-						else
-							flash[:danger] = "Current PP is zero."
-						end
-					else
-						flash[:danger] = "Pokemon 2 turn."
-					end
-				end
-			else
-				flash[:danger] = "Unauthorized skill."
-			end
-		end
+		pokemon_battle_engine = PokemonBattleEngine.new(
+			pokemon_battle_id: @pokemon_battle.id, 
+			attacker_id: params[:attacker_id], 
+			skill_id: params[:skill_id])
+		pokemon_battle_engine.try_to_attack
+		get_each_pokemon
 		render 'show'
 	end
 
 	def surrender
 		@pokemon_battle = PokemonBattle.find(params[:pokemon_battle_id])
+		pokemon_battle_engine = PokemonBattleEngine.new(
+			pokemon_battle_id: @pokemon_battle.id,
+			attacker_id: params[:surrender_id])
+		pokemon_battle_engine.try_to_surrender
 		get_each_pokemon
-		surrender = Pokemon.find(params[:surrender_id])
-
-		PokemonBattleEngine.surrender(@pokemon_battle, surrender)
-		
 		render 'show'
 	end
 
 	private
-
-	def try_to_attack
-		@pokemon_skill.current_pp -= 1
-		@pokemon_skill.save
-		
-		@pokemon_battle.current_turn += 1
-		@pokemon_battle.save
-		
-		damage = PokemonBattleCalculator.calculate_damage(
-			attacker_pokemon: @attacker, 
-			defender_pokemon: @defender, 
-			skill_id: @pokemon_skill.skill_id)
-
-		@defender.current_health_point -= damage
-		@defender.save
-		flash[:danger] = ""
-		check_win
-	end
-
-	def check_win
-		if @defender.current_health_point <= 0
-			@defender.current_health_point = 0
-			@defender.save
-			finishing_game
-		end
-	end
 	
-	def finishing_game
-		@pokemon_battle.state = "Finished"
-		@pokemon_battle.pokemon_winner_id = @attacker.id
-		@pokemon_battle.pokemon_loser_id = @defender.id
-		@pokemon_battle.experience_gain = PokemonBattleCalculator.calculate_experience(@defender.level)
-		@pokemon_battle.save
-
-		@attacker.current_experience += @pokemon_battle.experience_gain
-		while PokemonBattleCalculator.level_up?(winner_level: @attacker.level, total_exp: @attacker.current_experience)
-			@attacker.level += 1
-			increase_status = PokemonBattleCalculator.calculate_level_up_extra_stats
-			@attacker.max_health_point += increase_status[:health]
-			@attacker.attack += increase_status[:attack]
-			@attacker.defence += increase_status[:defence]
-			@attacker.speed += increase_status[:defence]
-		end
-		@attacker.save
-
-		flash[:danger] = ""
-	end
-
 	def pokemon_battle_params
 		params.require(:pokemon_battle).permit(
 									 :pokemon1_id, 
@@ -147,6 +70,7 @@ class PokemonBattlesController < ApplicationController
 		@pokemon_battle.pokemon1_max_health_point = @pokemon1.max_health_point
 		@pokemon_battle.pokemon2_max_health_point = @pokemon2.max_health_point
 	end
+
 	def get_each_pokemon
 		@pokemon1 = Pokemon.find(@pokemon_battle.pokemon1_id)
 		@pokemon2 = Pokemon.find(@pokemon_battle.pokemon2_id)
