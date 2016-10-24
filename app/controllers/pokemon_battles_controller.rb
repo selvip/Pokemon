@@ -79,23 +79,9 @@ class PokemonBattlesController < ApplicationController
 		@pokemon_battle = PokemonBattle.find(params[:pokemon_battle_id])
 		get_each_pokemon
 		surrender = Pokemon.find(params[:surrender_id])
-		if @pokemon_battle.current_turn.odd?
-			if surrender.id == @pokemon2.id or @pokemon_battle.state == "Finished"
-				flash[:danger] = "Cannot surrender on this turn."
-			else
-				@defender = @pokemon1
-				@attacker = @pokemon2
-				finishing_game
-			end
-		else
-			if surrender.id == @pokemon1.id or @pokemon_battle.state == "Finished"
-				flash[:danger] = "Cannot surrender on this turn."
-			else
-				@defender = @pokemon2
-				@attacker = @pokemon1
-				finishing_game
-			end
-		end
+
+		PokemonBattleEngine.surrender(@pokemon_battle, surrender)
+		
 		render 'show'
 	end
 

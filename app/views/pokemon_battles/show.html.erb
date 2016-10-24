@@ -1,6 +1,6 @@
 <div class="col-sm-12" id="versus">
 	<%= image_tag "vs_image.png", size: "200x200"%>
-	<%= (content_tag(:div, flash[:danger] , class: 'alert alert-danger', role: 'alert')) unless flash[:danger].empty? %>
+	<%= (content_tag(:div, @pokemon_battle.errors.full_messages.to_sentence , class: 'alert alert-danger', role: 'alert')) unless @pokemon_battle.errors.empty? %>
 </div>
 <div class="col-sm-6 btn-danger" id="pokemon1">
 	<h1><% if @pokemon_battle.pokemon_winner_id == @pokemon1.id and @pokemon_battle.state == "Finished" %>

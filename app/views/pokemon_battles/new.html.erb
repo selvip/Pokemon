@@ -10,6 +10,7 @@
 	<div class="col-sm-5">
 		<%= f.label 'Select Pokemon 1', for: 'pokemon1_id' %>
 		<%= f.select(:pokemon1_id, @list_pokemons, {}, {class: 'form-control form-group'}) %>
+		<%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon1_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon_battle.errors.include?(:pokemon1_id) %>
 	</div>
 	<div class="col-sm-2">
 		<center>
@@ -20,8 +21,6 @@
 	<div class="col-sm-5">
 		<%= f.label 'Select Pokemon 2', for: 'pokemon2_id' %>
 		<%= f.select(:pokemon2_id, @list_pokemons, {}, {class: 'form-control form-group'}) %>
-	</div>
-	<div class="col-sm-12">
-		<%= (content_tag(:div, @pokemon_battle.errors.full_messages.to_sentence , class: 'alert alert-danger', role: 'alert')) unless @pokemon_battle.errors.empty? %>
+		<%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon2_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon_battle.errors.include?(:pokemon2_id) %>
 	</div>
 <% end %>
