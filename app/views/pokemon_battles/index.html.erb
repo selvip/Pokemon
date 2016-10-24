@@ -25,8 +25,8 @@
 			<% @pokemon_battles.each do |pokemon_battle| %>
 				<tr class="bg-default">
 					<td><%= link_to "#{idx+=1}" , pokemon_battle_path(pokemon_battle) %></td>
-					<td><pre><%= pokemon_battle.pokemon1_name %></pre></td>
-					<td><pre><%= pokemon_battle.pokemon2_name %></pre></td>
+					<td><kbd><%= pokemon_battle.pokemon1_name %></kbd></td>
+					<td><kbd><%= pokemon_battle.pokemon2_name %></kbd></td>
 					<td><%= pokemon_battle.current_turn %></td>
 					<td><%= pokemon_battle.state %></td>
 					<td>

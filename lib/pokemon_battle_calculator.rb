@@ -1,4 +1,5 @@
 class PokemonBattleCalculator
+	IncreaseStatus = Struct.new(:health, :attack, :defence, :speed)
 	ATTACK_DEFEND = {
 		:normal => {
 			:normal => 1,
@@ -394,12 +395,12 @@ class PokemonBattleCalculator
 		end
 	end
 
-	def self.increase_status
-		inc_status = {}
-		inc_status[:health] = rand(10..20)
-		inc_status[:attack] = rand(1..5)
-		inc_status[:defence] = rand(1..5)
-		inc_status[:speed] = rand(1..5)
+	def self.calculate_level_up_extra_stats		
+		inc_status = IncreaseStatus.new
+		inc_status.health = rand(10..20)
+		inc_status.attack = rand(1..5)
+		inc_status.defence = rand(1..5)
+		inc_status.speed = rand(1..5)
 		inc_status
 	end
 

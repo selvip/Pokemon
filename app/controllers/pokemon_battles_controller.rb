@@ -137,7 +137,11 @@ class PokemonBattlesController < ApplicationController
 		@attacker.current_experience += @pokemon_battle.experience_gain
 		while PokemonBattleCalculator.level_up?(winner_level: @attacker.level, total_exp: @attacker.current_experience)
 			@attacker.level += 1
-			increase_status
+			increase_status = PokemonBattleCalculator.calculate_level_up_extra_stats
+			@attacker.max_health_point += increase_status[:health]
+			@attacker.attack += increase_status[:attack]
+			@attacker.defence += increase_status[:defence]
+			@attacker.speed += increase_status[:defence]
 		end
 		@attacker.save
 
