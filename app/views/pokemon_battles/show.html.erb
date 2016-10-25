@@ -52,7 +52,7 @@
 						<input type="hidden" name="surrender_id" value="<%= @pokemon1.id %>">
 						<% end %>
 					</li>
-					<li><%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon1_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon_battle.errors.include?(:pokemon1_id) %></li>
+					<li><%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon1_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if !@pokemon_battle.errors.include?(:pokemon1_id).blank? %></li>
 				</ul>
 			</td>
 		</tr>
@@ -111,7 +111,7 @@
 						<input type="hidden" name="surrender_id" value="<%= @pokemon2.id %>">
 						<% end %>
 					</li>
-					<li><%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon2_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon_battle.errors.include?(:pokemon1_id).blank? %></li>
+					<li><%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon2_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if !@pokemon_battle.errors.include?(:pokemon2_id).blank? %></li>
 				</ul>
 			</td>
 		</tr>

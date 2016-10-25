@@ -42,7 +42,7 @@ class PokemonBattlesController < ApplicationController
 			skill_id: params[:skill_id])
 		if pokemon_battle_engine.list_attack_validations?
 			pokemon_battle_engine.attack
-			@pokemon_battle.save
+			pokemon_battle_engine.save_attack
 			redirect_to @pokemon_battle
 		else
 			get_each_pokemon
@@ -58,7 +58,7 @@ class PokemonBattlesController < ApplicationController
 			attacker_id: params[:surrender_id])
 		if pokemon_battle_engine.list_surrender_validations?
 			pokemon_battle_engine.try_to_surrender
-			@pokemon_battle.save
+			pokemon_battle_engine.save_surrender
 			redirect_to @pokemon_battle
 		else
 			get_each_pokemon

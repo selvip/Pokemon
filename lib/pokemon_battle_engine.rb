@@ -25,12 +25,10 @@ class PokemonBattleEngine
 
 		@defender.current_health_point -= damage
 		check_win
-		@pokemon_skill.save
 	end
 
 	def try_to_surrender
 		finishing_game
-		save_all
 	end
 
 	def list_attack_validations?
@@ -51,6 +49,23 @@ class PokemonBattleEngine
 		result << validate_state?
 		result << validate_surrender_turn?
 		result.all?
+	end
+
+	def save_surrender
+		ActiveRecord::Base.transaction do
+			@pokemon_battle.save
+			@attacker.save
+			@defender.save
+		end
+	end
+
+	def save_attack
+		ActiveRecord::Base.transaction do
+			@pokemon_battle.save
+			@attacker.save
+			@defender.save
+			@pokemon_skill.save
+		end
 	end
 
 	private
@@ -86,7 +101,7 @@ class PokemonBattleEngine
 			if @defender.id == @pokemon_battle.pokemon1_id
 				flag = true
 			else
-				@pokemon_battle.errors.add(:pokemon1_id, "Pokemon 1's turn.")
+				@pokemon_battle.errors.add(:pokemon2_id, "Pokemon 1's turn.")
 				flag = false
 			end
 		elsif @pokemon_battle.current_turn.even?
@@ -102,11 +117,12 @@ class PokemonBattleEngine
 
 	def validate_current_pp?
 		if @pokemon_skill.current_pp > 0
-			@flag = true
+			flag = true
 		else
-			flag = false
 			@pokemon_battle.errors.add(:base, "Current PP is 0")
+			flag = false
 		end
+		flag
 	end
 	
 	def validate_pokemon_skill?
@@ -117,15 +133,6 @@ class PokemonBattleEngine
 		if @defender.current_health_point <= 0
 			@defender.current_health_point = 0
 			finishing_game
-		end
-		save_all
-	end
-
-	def save_all
-		ActiveRecord::Base.transaction do
-			@pokemon_battle.save
-			@attacker.save
-			@defender.save
 		end
 	end
 

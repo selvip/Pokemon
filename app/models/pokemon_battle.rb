@@ -18,6 +18,13 @@ class PokemonBattle < ApplicationRecord
 		end
 	end
 
+	def check_pokemon1_and_pokemon2
+		if self.pokemon2_id == self.pokemon1_id
+			errors.add(:pokemon1_id, "Cannot be the same pokemon.")
+			errors.add(:pokemon2_id, "Cannot be the same pokemon.")
+		end
+	end
+
 	def pokemon1_name
 		pokemon1.name
 	end

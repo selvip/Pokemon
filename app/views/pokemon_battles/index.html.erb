@@ -24,8 +24,8 @@
 				<td rowspan="3" width="40%"><kbd><%= pokemon_battle.pokemon1_name %></kbd>
 				<%= image_tag pokemon_battle.pokemon1_image, size: "100x100" %></td>
 				<td style="text-align: center;">
-					<p>Turn: <%= pokemon_battle.current_turn %></p>
-					<p>State: <%= pokemon_battle.state %></p>
+					<pre>Turn: <%= pokemon_battle.current_turn %></pre>
+					<pre>State: <%= pokemon_battle.state %></pre>
 					<ul class="list-inline">
 						<li><%= link_to "Battle! ⚔", pokemon_battle_path(pokemon_battle), class: 'btn btn-success' %></li>
 						<li><%= button_to 'Destroy', pokemon_battle, 
