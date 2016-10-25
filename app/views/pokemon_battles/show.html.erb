@@ -118,3 +118,41 @@
 	</table>
 	<% end %>
 </div>
+
+<div class="col-sm-12">
+	<table class="table table-bordered">
+		<thead class="bg-primary">
+			<tr>
+				<th>#</th>
+				<th>Pokemon Battle ID</th>
+				<th>Attacker</th>
+				<th>Defender</th>
+				<th>Skill Name</th>
+				<th>Turn</th>
+				<th>Damage</th>
+				<th>Attacker HP</th>
+				<th>Defender HP</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% idx=0 %>
+			<% if !@pokemon_battle_logs.nil? %>
+				<% @pokemon_battle_logs.each do |pokemon_battle_log| %>
+					<tr>
+						<td><%= idx+=1 %></td>
+						<td><%= pokemon_battle_log.pokemon_battle_id %></td>
+						<td><%= pokemon_battle_log.attacker_name %></td>
+						<td><%= pokemon_battle_log.defender_name %></td>
+						<td><%= pokemon_battle_log.skill_name if !pokemon_battle_log.skill_id.nil? %></td>
+						<td><%= pokemon_battle_log.turn %></td>
+						<td><%= pokemon_battle_log.damage %></td>
+						<td><%= pokemon_battle_log.attacker_current_health_point %></td>
+						<td><%= pokemon_battle_log.defender_current_health_point %></td>
+						<td><%= pokemon_battle_log.action_type %></td>
+					</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+</div>

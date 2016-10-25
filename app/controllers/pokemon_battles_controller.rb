@@ -30,6 +30,7 @@ class PokemonBattlesController < ApplicationController
 
 	def show
 		@pokemon_battle = PokemonBattle.find(params[:id])
+		@pokemon_battle_logs = @pokemon_battle.pokemon_battle_logs
 		get_each_pokemon
 	end
 
@@ -57,7 +58,7 @@ class PokemonBattlesController < ApplicationController
 			pokemon_battle: @pokemon_battle,
 			attacker_id: params[:surrender_id])
 		if pokemon_battle_engine.list_surrender_validations?
-			pokemon_battle_engine.try_to_surrender
+			pokemon_battle_engine.surrender
 			pokemon_battle_engine.save_surrender
 			redirect_to @pokemon_battle
 		else

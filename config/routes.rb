@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   	resources :pokemon_skills
   end
   resources :pokemon_battles do
+    resources :pokemon_battle_logs
   	post 'attack'
   	post 'surrender'
   end

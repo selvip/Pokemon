@@ -13,21 +13,27 @@ class PokemonBattleEngine
 		@pokemon_skill = PokemonSkill.find(skill_id) if !skill_id.nil?
 	end
 
+	def next_turn
+		@pokemon_battle.current_turn += 1
+		@pokemon_battle.save
+	end
 
 	def attack
 		@pokemon_skill.current_pp -= 1
-		@pokemon_battle.current_turn += 1
 		
-		damage = PokemonBattleCalculator.calculate_damage(
+		@damage = PokemonBattleCalculator.calculate_damage(
 			attacker_pokemon: @attacker, 
 			defender_pokemon: @defender, 
 			skill_id: @pokemon_skill.skill_id)
 
-		@defender.current_health_point -= damage
+		@defender.current_health_point -= @damage
+
+		adding_log_stats("Attack")
 		check_win
 	end
 
-	def try_to_surrender
+	def surrender
+		adding_log_stats("Surrender")
 		finishing_game
 	end
 
@@ -56,6 +62,7 @@ class PokemonBattleEngine
 			@pokemon_battle.save
 			@attacker.save
 			@defender.save
+			@pokemon_battle_log.save
 		end
 	end
 
@@ -65,10 +72,12 @@ class PokemonBattleEngine
 			@attacker.save
 			@defender.save
 			@pokemon_skill.save
+			@pokemon_battle_log.save
 		end
 	end
 
 	private
+
 	def validate_state?
 		if @pokemon_battle.state == "Ongoing"
 			flag = true
@@ -132,8 +141,23 @@ class PokemonBattleEngine
 	def check_win
 		if @defender.current_health_point <= 0
 			@defender.current_health_point = 0
+			@pokemon_battle.current_turn -= 1
 			finishing_game
+		else
+			next_turn
 		end
+	end
+
+	def adding_log_stats(action_type)
+		@pokemon_battle_log = PokemonBattleLog.new
+		@pokemon_battle_log.pokemon_battle_id = @pokemon_battle.id
+		@pokemon_battle_log.turn = @pokemon_battle.current_turn
+		@pokemon_battle_log.skill_id = @pokemon_skill.id if !@pokemon_skill.nil?
+		@pokemon_battle_log.attacker_id = @attacker.id
+		@pokemon_battle_log.attacker_current_health_point = @attacker.current_health_point
+		@pokemon_battle_log.defender_id = @defender.id
+		@pokemon_battle_log.defender_current_health_point = @defender.current_health_point
+		@pokemon_battle_log.action_type = action_type
 	end
 
 	def finishing_game
