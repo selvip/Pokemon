@@ -5,13 +5,6 @@ class PokemonBattle < ApplicationRecord
 	validates :pokemon2_id, presence: true
 	validate :check_pokemon1_and_pokemon2
 	validate :check_pokemon_hp_zero
-	# validates :current_turn, presence: true
-	# validates :state, presence: true
-	# validates :pokemon_winner_id, presence: true
-	# validates :pokemon_loser_id, presence: true
-	# validates :experience_gain, presence: true
-	# validates :pokemon1_max_health_point, presence: true
-	# validates :pokemon2_max_health_point, presence: true
 
 	def check_pokemon_hp_zero
 		@list_pokemons = []
@@ -25,29 +18,6 @@ class PokemonBattle < ApplicationRecord
 		end
 	end
 
-	def check_pokemon1_and_pokemon2
-		if self.pokemon2_id == self.pokemon1_id
-			errors.add(:pokemon1_id, "Cannot be the same pokemon.")
-			errors.add(:pokemon2_id, "Cannot be the same pokemon.")
-		end
-	end
-
-	def validate_attack_odd
-		if self.current_turn.even?
-			errors.add(:current_turn, "Pokemon 1's turn")
-		end
-	end
-
-	def validate_attack_even
-		if self.current_turn.odd?
-			errors.add(:current_turn, "Pokemon 2's turn")
-		end
-	end
-
-	def validate_pokemon_skill
-		errors.add(:skill_id, "Unauthorized skill.")
-	end
-
 	def pokemon1_name
 		pokemon1.name
 	end
@@ -56,4 +26,11 @@ class PokemonBattle < ApplicationRecord
 		pokemon2.name
 	end
 
+	def pokemon1_image
+		pokemon1.pokedex_image
+	end
+
+	def pokemon2_image
+		pokemon2.pokedex_image
+	end
 end

@@ -1,8 +1,9 @@
 class PokemonBattleEngine
 
-	def initialize(pokemon_battle_id:, attacker_id:, skill_id: nil)
-		@pokemon_battle = PokemonBattle.find(pokemon_battle_id)
+	def initialize(pokemon_battle:, attacker_id:, skill_id: nil)
+		@pokemon_battle = pokemon_battle
 		@attacker = Pokemon.find(attacker_id)
+
 		case attacker_id.to_i
 		when @pokemon_battle.pokemon1_id
 			@defender = Pokemon.find(@pokemon_battle.pokemon2.id)
@@ -12,32 +13,24 @@ class PokemonBattleEngine
 		@pokemon_skill = PokemonSkill.find(skill_id) if !skill_id.nil?
 	end
 
-	def try_to_attack
-		list_attack_validations?
-		if list_attack_validations?
-			attack
-		end
+
+	def attack
+		@pokemon_skill.current_pp -= 1
+		@pokemon_battle.current_turn += 1
+		
+		damage = PokemonBattleCalculator.calculate_damage(
+			attacker_pokemon: @attacker, 
+			defender_pokemon: @defender, 
+			skill_id: @pokemon_skill.skill_id)
+
+		@defender.current_health_point -= damage
+		check_win
+		@pokemon_skill.save
 	end
 
 	def try_to_surrender
-		temp = @attacker
-		@attacker = @defender
-		@defender = temp
-
-		list_surrender_validations?
-		if list_surrender_validations?
-			finishing_game
-			save_all
-		end
-	end
-
-	private
-
-	def list_surrender_validations?
-		result = []
-		result << validate_state?
-		result << validate_turn?
-		result.all?
+		finishing_game
+		save_all
 	end
 
 	def list_attack_validations?
@@ -48,6 +41,19 @@ class PokemonBattleEngine
 		result << validate_turn?
 		result.all?
 	end
+
+	def list_surrender_validations?
+		temp = @attacker
+		@attacker = @defender
+		@defender = temp
+
+		result = []
+		result << validate_state?
+		result << validate_surrender_turn?
+		result.all?
+	end
+
+	private
 	def validate_state?
 		if @pokemon_battle.state == "Ongoing"
 			flag = true
@@ -56,6 +62,7 @@ class PokemonBattleEngine
 			flag = false		
 		end
 	end
+	
 	def validate_turn?
 		if @pokemon_battle.current_turn.odd?
 			if @attacker.id == @pokemon_battle.pokemon1_id
@@ -65,17 +72,43 @@ class PokemonBattleEngine
 				flag = false			
 			end
 		elsif @pokemon_battle.current_turn.even?
-			if @attacker.id == @pokemon_battle.pokemon1_id
+			if @attacker.id == @pokemon_battle.pokemon2_id
 				flag = true
-			elsif @attacker.id ==@pokemon_battle.pokemon2_id
-				flag = false
-				@pokemon_battle.errors.add(:pokemon1_id, "Pokemon2's turn.")			
+			elsif @attacker.id == @pokemon_battle.pokemon1_id
+				@pokemon_battle.errors.add(:pokemon1_id, "Pokemon2's turn.")
+				flag = false			
 			end
 		end
 	end
-	def validate_current_pp?
-		@pokemon_skill.current_pp > 0
+
+	def validate_surrender_turn?
+		if @pokemon_battle.current_turn.odd?
+			if @defender.id == @pokemon_battle.pokemon1_id
+				flag = true
+			else
+				@pokemon_battle.errors.add(:pokemon1_id, "Pokemon 1's turn.")
+				flag = false
+			end
+		elsif @pokemon_battle.current_turn.even?
+			if @defender.id == @pokemon_battle.pokemon2_id
+				flag = true
+			elsif @attacker.id == @pokemon_battle.pokemon1_id
+				@pokemon_battle.errors.add(:pokemon1_id, "Pokemon 2's turn.")
+				flag = false
+			end
+				
+		end	
 	end
+
+	def validate_current_pp?
+		if @pokemon_skill.current_pp > 0
+			@flag = true
+		else
+			flag = false
+			@pokemon_battle.errors.add(:base, "Current PP is 0")
+		end
+	end
+	
 	def validate_pokemon_skill?
 		@attacker.pokemon_skills.include? @pokemon_skill
 	end
@@ -93,7 +126,6 @@ class PokemonBattleEngine
 			@pokemon_battle.save
 			@attacker.save
 			@defender.save
-			@pokemon_skill.save if !@pokemon_skill.nil?
 		end
 	end
 
@@ -118,16 +150,4 @@ class PokemonBattleEngine
 		end
 	end
 
-	def attack
-		@pokemon_skill.current_pp -= 1
-		@pokemon_battle.current_turn += 1
-		
-		damage = PokemonBattleCalculator.calculate_damage(
-			attacker_pokemon: @attacker, 
-			defender_pokemon: @defender, 
-			skill_id: @pokemon_skill.skill_id)
-
-		@defender.current_health_point -= damage
-		check_win
-	end
 end

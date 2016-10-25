@@ -37,22 +37,33 @@ class PokemonBattlesController < ApplicationController
 		@pokemon_battle = PokemonBattle.find(params[:pokemon_battle_id])
 
 		pokemon_battle_engine = PokemonBattleEngine.new(
-			pokemon_battle_id: @pokemon_battle.id, 
+			pokemon_battle: @pokemon_battle, 
 			attacker_id: params[:attacker_id], 
 			skill_id: params[:skill_id])
-		pokemon_battle_engine.try_to_attack
-		get_each_pokemon
-		render 'show'
+		if pokemon_battle_engine.list_attack_validations?
+			pokemon_battle_engine.attack
+			@pokemon_battle.save
+			redirect_to @pokemon_battle
+		else
+			get_each_pokemon
+			render 'show'
+		end
+		
 	end
 
 	def surrender
 		@pokemon_battle = PokemonBattle.find(params[:pokemon_battle_id])
 		pokemon_battle_engine = PokemonBattleEngine.new(
-			pokemon_battle_id: @pokemon_battle.id,
+			pokemon_battle: @pokemon_battle,
 			attacker_id: params[:surrender_id])
-		pokemon_battle_engine.try_to_surrender
-		get_each_pokemon
-		render 'show'
+		if pokemon_battle_engine.list_surrender_validations?
+			pokemon_battle_engine.try_to_surrender
+			@pokemon_battle.save
+			redirect_to @pokemon_battle
+		else
+			get_each_pokemon
+			render 'show'	
+		end
 	end
 
 	private
