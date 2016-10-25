@@ -152,11 +152,13 @@ class PokemonBattleEngine
 		@pokemon_battle_log = PokemonBattleLog.new
 		@pokemon_battle_log.pokemon_battle_id = @pokemon_battle.id
 		@pokemon_battle_log.turn = @pokemon_battle.current_turn
+		@pokemon_battle_log.damage = @damage
 		@pokemon_battle_log.skill_id = @pokemon_skill.id if !@pokemon_skill.nil?
 		@pokemon_battle_log.attacker_id = @attacker.id
 		@pokemon_battle_log.attacker_current_health_point = @attacker.current_health_point
 		@pokemon_battle_log.defender_id = @defender.id
 		@pokemon_battle_log.defender_current_health_point = @defender.current_health_point
+		@pokemon_battle_log.defender_current_health_point = 0 if @defender.current_health_point < 0
 		@pokemon_battle_log.action_type = action_type
 	end
 

@@ -2,7 +2,7 @@ class PokemonBattleLog < ApplicationRecord
 	belongs_to :pokemon_battle
 
 	def skill_name
-		Skill.find(self.skill_id).name
+		PokemonSkill.find(self.skill_id).skill_name
 	end
 
 	def attacker_name

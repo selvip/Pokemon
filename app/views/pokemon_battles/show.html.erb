@@ -124,7 +124,7 @@
 		<thead class="bg-primary">
 			<tr>
 				<th>#</th>
-				<th>Pokemon Battle ID</th>
+				<th>Battle ID</th>
 				<th>Attacker</th>
 				<th>Defender</th>
 				<th>Skill Name</th>
@@ -136,11 +136,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% idx=0 %>
 			<% if !@pokemon_battle_logs.nil? %>
-				<% @pokemon_battle_logs.each do |pokemon_battle_log| %>
+				<% idx = @pokemon_battle_logs.count + 1 %>
+				<% pokemon_battle_logs = @pokemon_battle_logs.reverse %>
+				<% pokemon_battle_logs.each do |pokemon_battle_log| %>
 					<tr>
-						<td><%= idx+=1 %></td>
+						<td><%= idx-=1 %></td>
 						<td><%= pokemon_battle_log.pokemon_battle_id %></td>
 						<td><%= pokemon_battle_log.attacker_name %></td>
 						<td><%= pokemon_battle_log.defender_name %></td>

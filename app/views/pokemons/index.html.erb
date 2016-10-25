@@ -9,7 +9,7 @@
 <div class="col-sm-12">
 <ul class="list-inline">
 	<li><%= link_to 'Add a Pokemon', new_pokemon_path, class: "btn btn-primary"%></li>
-	<li><%#= link_to 'Heal All', pokemon_heal_all_path, class: 'btn btn-success' %></li>
+	<li><%= link_to 'Heal All', heal_all_pokemons_path, class: 'btn btn-success' %></li>
 </ul>
 	<table class="table table-inverse">
 		<thead>
@@ -40,7 +40,7 @@
 					<td><%= pokemon.defence %></td>
 					<td><%= pokemon.speed %></td>
 					<td><%= pokemon.current_experience %></td>
-					<td><%= button_to 'Heal', "#", class: 'btn btn-success' %></td>
+					<td><%= button_to 'Heal', pokemon_heal_path(pokemon_id: pokemon.id), class: 'btn btn-success' %></td>
 					<td><center>
 						<%= button_to 'Destroy', pokemon, 
 						method: :delete,
@@ -48,8 +48,17 @@
 					  data: { confirm: 'Are you sure?' } %>  	
 				  </center></td>
 				</tr>
+				<% if %>
+					<tr>
+						<td>
+							
+						</td>
+					</tr>
+				<% end %>
 			<% end %>
 		</tbody>
 	</table>
-	
+	<% flash.each do |key, value| %>
+	  <%= content_tag :div, value, class: "alert alert-#{key}" %>
+	<% end %>
 </div>

@@ -6,6 +6,7 @@ class PokemonsController < ApplicationController
 
 	def new
 		@pokemon = Pokemon.new
+		
 		list_pokedexes = Pokedex.all
 		@list_names_ids = list_pokedexes.map { |poke| [poke.name, poke.id]}
 	end
@@ -56,17 +57,48 @@ class PokemonsController < ApplicationController
 	end
 
 	def heal
-		@pokemon = Pokemon.find(params[:id])
-		@pokemon.current_health_point = @pokemon.max_health_point
-		@pokemon.save
+		@pokemon = Pokemon.find(params[:pokemon_id])
+		flag = true
+		
+		@pokemon.pokemon_battles.each do |pokemon_battle|
+			flag = false if pokemon_battle.state == "Ongoing"
+		end
+
+		if flag
+			@pokemon.current_health_point = @pokemon.max_health_point
+			@pokemon.pokemon_skills.each do |pokemon_skill| 
+				pokemon_skill.current_pp = pokemon_skill.skill_max_pp
+				pokemon_skill.save
+			end
+			@pokemon.save
+			redirect_to @pokemon
+		else
+			flash[:danger] = "Cannot heal"
+			@pokemons = Pokemon.all
+			render 'index'
+		end
 	end
 
 	def heal_all
 		@pokemons = Pokemon.all
+		cant_be_healed = []
 		@pokemons.each do |pokemon|
-			pokemon.current_health_point = pokemon.max_health_point
-			pokemon.save
+			flag = true
+			result = pokemon.pokemon_battles.where(state: 'Ongoing')
+			if result.blank?
+				pokemon.current_health_point = pokemon.max_health_point
+				pokemon.pokemon_skills.each do |pokemon_skill| 
+					pokemon_skill.current_pp = pokemon_skill.skill_max_pp
+					pokemon_skill.save
+				end
+				pokemon.save
+			else
+				cant_be_healed << pokemon.name
+			end
 		end
+		flash[:danger] = "#{cant_be_healed.to_sentence} can't be healed" if cant_be_healed.count > 0
+		@pokemons = Pokemon.all
+		render 'index'
 	end
 
 	private

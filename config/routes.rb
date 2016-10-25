@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :skills
   resources :pokemons do
     post 'heal'
-    get 'heal_all'
+    get 'heal_all', on: :collection
   	resources :pokemon_skills
   end
   resources :pokemon_battles do
