@@ -1,12 +1,15 @@
 class PokemonBattlesController < ApplicationController
 	def index
 		@pokemon_battles = PokemonBattle.all
+		navigation_add("Pokemon Battle Index", "#")
 	end
 
 	def new
 		@pokemon_battle = PokemonBattle.new
 		@list_pokemons = []
 		Pokemon.all.each { |poke| @list_pokemons << [poke.name, poke.id] if poke.current_health_point > 0 }
+		navigation_add("Pokemon Battle Index", pokemon_battles_path)
+		navigation_add("Pokemon Battle New", "#")
 	end
 
 	def create
@@ -32,6 +35,8 @@ class PokemonBattlesController < ApplicationController
 		@pokemon_battle = PokemonBattle.find(params[:id])
 		@pokemon_battle_logs = @pokemon_battle.pokemon_battle_logs
 		get_each_pokemon
+		navigation_add("Pokemon Battle Index", pokemon_battles_path)
+		navigation_add("Pokemon Battle Show", "#")
 	end
 
 	def attack

@@ -1,8 +1,6 @@
 <% content_for :jumbotron do %>
-	<div class="col-sm-12">
-		<div class="jumbotron center-block">
-			<h1>Pokemon Battle</h1>
-		</div>
+	<div class="jumbotron center-block well">
+		<h1>Pokemon Battle</h1>
 	</div>
 <% end %>
 
@@ -17,8 +15,10 @@
 		  </tr>
 		</thead>
 	</table>
+	<% if !@pokemon_battles.nil? %>
 	<% idx=0 %>
-	<% @pokemon_battles.each do |pokemon_battle| %>
+	<% pokemon_battles = @pokemon_battles.reverse %>
+	<% pokemon_battles.each do |pokemon_battle| %>
 		<table class="table table-bordered">
 			<tr class="bg-default">
 				<td width="40%">
@@ -39,5 +39,6 @@
 			  </td>
 			</tr>	
 		</table>
+	<% end %>
 	<% end %>
 </div>

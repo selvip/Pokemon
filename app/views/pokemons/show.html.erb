@@ -1,8 +1,6 @@
 <% content_for :jumbotron do %>
-	<div class="col-sm-12">
-		<div class="jumbotron center-block">
-			<h1>Pokemon Show</h1>
-		</div>
+	<div class="jumbotron center-block well">
+		<h1>Pokemon Show</h1>
 	</div>
 <% end %>
 
@@ -19,9 +17,9 @@
 </div>
 
 <div class="col-sm-8">
-	<table class="table table-inverse">
+	<table class="table table-inverse well" style="text-align: center;">
 		<tr>
-			<td class="bg-primary">#</td>
+			<td class="bg-primary" width="30%">#</td>
 			<td><%= @pokemon.id %></td>
 		</tr>
 		<tr>
@@ -63,7 +61,7 @@
 
 <div class="col-sm-12">
 <h2>Skills</h2>
-<table class="table table-inverse">
+<table class="table table-inverse well">
 	<thead>
 		<tr class="bg-primary">
 			<td>Name</td>

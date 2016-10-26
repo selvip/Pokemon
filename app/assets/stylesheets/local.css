@@ -13,7 +13,7 @@ main {
    padding: 50px 0 100px 0;
 }
 #versus img{
-   top:40%;
+   top:75%;
    left:40%;
    z-index: 3;
    position: absolute;
@@ -47,4 +47,16 @@ main {
    text-align: center;
    background-color: #428bca;
    color: #fff;
+}
+.red {
+   border-radius: 5px 5px 5px 5px;
+   padding: 10px 0 10px 0;
+   background-color: #d9534f;
+   color: #FFFFFF;
+}
+.blue {
+   border-radius: 5px 5px 5px 5px;
+   padding: 10px 0 10px 0;
+   background-color: #428bca;
+   color: #FFFFFF;
 }

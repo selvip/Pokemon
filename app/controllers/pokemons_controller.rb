@@ -2,6 +2,7 @@ class PokemonsController < ApplicationController
 
 	def index
 		@pokemons = Pokemon.all
+		navigation_add("Pokemon Index", "#")
 	end
 
 	def new
@@ -9,6 +10,8 @@ class PokemonsController < ApplicationController
 		
 		list_pokedexes = Pokedex.all
 		@list_names_ids = list_pokedexes.map { |poke| [poke.name, poke.id]}
+		navigation_add("Pokemon Index", pokemons_path)
+		navigation_add("Pokemon New", "#")
 	end
 
 	def create
@@ -18,7 +21,9 @@ class PokemonsController < ApplicationController
 			@pokemon.save
 			redirect_to pokemon_path @pokemon
 		else
-			redirect_to new_pokemon_path, :flash => {:danger => 'Name already taken.'}
+			list_pokedexes = Pokedex.all
+			@list_names_ids = list_pokedexes.map { |poke| [poke.name, poke.id]}
+			render 'new'
 		end
 	end
 
@@ -31,11 +36,17 @@ class PokemonsController < ApplicationController
 		@pokemon_skill.pokemon_id = @pokemon.id
 		list_skill = Skill.all
 		@list_names_ids = list_skill.map { |sk| [sk.name, sk.id] }
+
+		navigation_add("Pokemon Index", pokemons_path)
+		navigation_add("Pokemon Show", "#")
 	end
 
 	def edit
 		@pokemon = Pokemon.find(params[:id])
 		@pokedex = Pokedex.find(@pokemon.pokedex_id)
+		navigation_add("Pokemon Index", pokemons_path)
+		navigation_add("Pokemon Show", @pokemon)
+		navigation_add("Pokemon Edit", "#")
 	end
 
 	def update
