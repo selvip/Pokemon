@@ -1,6 +1,5 @@
-namespace :pokemon_rainbow 
-	desc "To populate database both Pokedex and Skill tables."
-	task :drop_and_seed => 'db:seed' do
-		puts "Reseeding completed."		
-	end
+namespace :pokemon_rainbow do
+  desc "TODO"
+  task :drop_and_seed => ["db:drop", "db:create", "db:migrate", "db:seed"]
+
 end

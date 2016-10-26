@@ -141,7 +141,6 @@ class PokemonBattleEngine
 	def check_win
 		if @defender.current_health_point <= 0
 			@defender.current_health_point = 0
-			@pokemon_battle.current_turn -= 1
 			finishing_game
 		else
 			next_turn
