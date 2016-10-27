@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20161025040917) do
     t.integer  "experience_gain"
     t.integer  "pokemon1_max_health_point"
     t.integer  "pokemon2_max_health_point"
+    t.string   "battle_type"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end

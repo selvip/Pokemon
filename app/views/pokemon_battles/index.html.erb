@@ -5,7 +5,7 @@
 <% end %>
 
 <div class="col-sm-12">
-<%= link_to '+ New Pokemon Battle', new_pokemon_battle_path, class: "btn btn-primary"%>
+	<%= link_to '+ New Pokemon Battle', new_pokemon_battle_path, class: "btn btn-primary"%>
 	<br /><br />
 	<table class="table table-bordered">
 		<thead>
@@ -15,30 +15,41 @@
 		  </tr>
 		</thead>
 	</table>
+
 	<% if !@pokemon_battles.nil? %>
-	<% idx=0 %>
-	<% pokemon_battles = @pokemon_battles.reverse %>
-	<% pokemon_battles.each do |pokemon_battle| %>
-		<table class="table table-bordered">
-			<tr class="bg-default">
-				<td width="40%" class="red">
-				<%= image_tag pokemon_battle.pokemon1_image, size: "250x250" %><br /><h1><kbd><%= pokemon_battle.pokemon1_name %></kbd></h1></td>
-				<td style="text-align: center;">
-					<ul class="list-group">
-						<li class="list-group-item"><pre>Turn: <%= pokemon_battle.current_turn %></pre></li>
-						<li class="list-group-item"><pre>State: <%= pokemon_battle.state %></pre></li>
-						<li class="list-group-item"><%= link_to "Battle! ⚔", pokemon_battle_path(pokemon_battle), class: 'btn btn-success' %></li>
-						<li class="list-group-item"><%= button_to 'Destroy', pokemon_battle, 
-							method: :delete,
-							class: 'btn btn-danger',
-				  data: { confirm: 'Are you sure?' } %></li>
-				  		<li class="list-group-item"><%= link_to "Battle Logs", pokemon_battle_pokemon_battle_logs_path(pokemon_battle_id: pokemon_battle.id), class: 'btn btn-warning' %></li>  
-				  </ul>	
-				</td>
-			  <td style="text-align: right;"  width="40%"  class="blue"><%= image_tag pokemon_battle.pokemon2_image, size: "250x250" %><br /><h1><kbd><%= pokemon_battle.pokemon2_name %></kbd></h1>
-			  </td>
-			</tr>	
-		</table>
-	<% end %>
+		<% idx = 0 %>
+		<% pokemon_battles = @pokemon_battles.reverse %>
+		<% pokemon_battles.each do |pokemon_battle| %>
+			<table class="table table-bordered">
+				<tr class="bg-primary">
+					<td style="text-align: center;" colspan="2">
+						<ul class="list-inline">
+							<li><a class="btn btn-default">Turn: <%= pokemon_battle.current_turn %></a></li>
+							<li><a class="btn btn-default">State: <%= pokemon_battle.state %></a></li>
+							<li>
+								<%= form_tag(pokemon_battle_change_battle_type_path(pokemon_battle_id: pokemon_battle)) do %>
+										<%= select_tag(:battle_type, [], {}, class: 'form-control form-group') %>
+									<%= submit_tag "Change", class: 'btn btn-primary' %>
+								<% end %>
+							</li>
+							<li><%= link_to "Battle! ⚔", pokemon_battle, class: 'btn btn-success' %></li>
+							<li><%= button_to 'Destroy', pokemon_battle, 
+								method: :delete,
+								class: 'btn btn-danger',
+					  data: { confirm: 'Are you sure?' } %></li>
+					  		<li><%= link_to "Battle Logs", pokemon_battle_pokemon_battle_logs_path(pokemon_battle_id: pokemon_battle.id), class: 'btn btn-warning' %></li>  
+					  </ul>	
+					</td>
+				</tr>
+				<tr class="bg-default">
+					<td width="40%" class="red">
+						<%= image_tag pokemon_battle.pokemon1_image, size: "350x350" %><br />
+						<h1><kbd><%= pokemon_battle.pokemon1_name %></kbd></h1>
+					</td>
+				  <td style="text-align: right;"  width="40%"  class="blue"><%= image_tag pokemon_battle.pokemon2_image, size: "350x350" %><br /><h1><kbd><%= pokemon_battle.pokemon2_name %></kbd></h1>
+				  </td>
+				</tr>	
+			</table>
+		<% end %>
 	<% end %>
 </div>

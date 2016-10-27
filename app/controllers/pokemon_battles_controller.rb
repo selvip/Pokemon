@@ -72,6 +72,19 @@ class PokemonBattlesController < ApplicationController
 		end
 	end
 
+	def change_battle_type
+		@pokemon_battle = PokemonBattle.find(params[:pokemon_battle_id])
+		@pokemon_battle.battle_type = params[:battle_type]
+		if @pokemon_battle.save
+			redirect_to pokemon_battles_path
+		else
+			raise 'a'
+			@pokemon_battles = PokemonBattle.all
+			navigation_add("Pokemon Battle Index", "#")
+			render 'index'
+		end
+	end
+
 	private
 	
 	def pokemon_battle_params
@@ -84,6 +97,7 @@ class PokemonBattlesController < ApplicationController
 	def set_pokemon_battle_attr
 		@pokemon_battle.current_turn = 1
 		@pokemon_battle.state = "Ongoing"
+		@pokemon_battle.battle_type = "Me vs Me"
 		@pokemon_battle.pokemon1_max_health_point = @pokemon1.max_health_point
 		@pokemon_battle.pokemon2_max_health_point = @pokemon2.max_health_point
 	end

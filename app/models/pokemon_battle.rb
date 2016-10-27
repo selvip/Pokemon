@@ -1,6 +1,9 @@
 class PokemonBattle < ApplicationRecord
 	STATE = ['Ongoing', 'Finished']
-	BATTLE_TYPE = ['Me vs Me','Me vs AI', 'AutoMatch!']
+	BATTLE_TYPE = [
+		"Me vs Me",
+		"Me vs AI", 
+		"AutoMatch!"]
 
 	belongs_to :pokemon1, class_name: 'Pokemon'
 	belongs_to :pokemon2, class_name: 'Pokemon'
