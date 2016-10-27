@@ -10,6 +10,7 @@ class CreatePokemonBattles < ActiveRecord::Migration[5.0]
     	t.integer :experience_gain
     	t.integer :pokemon1_max_health_point
     	t.integer :pokemon2_max_health_point
+      t.string :battle_type
       t.timestamps
     end
   end

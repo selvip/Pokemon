@@ -1,4 +1,5 @@
-class Pokedex < ApplicationRecord	
+class Pokedex < ApplicationRecord
+	has_many :pokemons, dependent: :destroy
 	validates :name, 
 		presence: true, 
 		length: {maximum: 45}, 

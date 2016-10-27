@@ -43,8 +43,6 @@ describe 'relation to pokemon_skill' do
 		expect(ps_sample_1.errors.include? :pokemon).to eq(true)
 	end
 
-
-
 	it "PokemonSkill must be owned by a skill" do
 		ps_sample_1 = ::PokemonSkill.new
 		ps_sample_1.pokemon_id = @sample_1.id
@@ -60,5 +58,26 @@ describe 'relation to pokemon_skill' do
 		expect(ps_sample_1.save).to eq(true)
 	end
 
+	it "PokemonSkill is deleted once Pokemon does not exist." do
+		ps_sample_1 = ::PokemonSkill.new
+		ps_sample_1.pokemon_id = @sample_1.id
+		ps_sample_1.skill_id = @sample_skill.id
+		ps_sample_1.current_pp = 10
+		ps_sample_1.save
+
+		@sample_1.destroy
+		expect(PokemonSkill.count).to eq(0)
+	end
+
+	it "PokemonSkill is deleted once Skill does not exist." do
+		ps_sample_1 = ::PokemonSkill.new
+		ps_sample_1.pokemon_id = @sample_1.id
+		ps_sample_1.skill_id = @sample_skill.id
+		ps_sample_1.current_pp = 10
+		ps_sample_1.save
+		@sample_skill.destroy
+
+		expect(PokemonSkill.count).to eq(0)
+	end
 
 end

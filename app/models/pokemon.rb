@@ -2,8 +2,8 @@ class Pokemon < ApplicationRecord
 	belongs_to :pokedex
 	has_many :pokemon_skills, dependent: :destroy
 	has_many :skills, through: :pokemon_skills
-	has_many :pokemon_battles1, foreign_key: :pokemon1_id, class_name: 'PokemonBattle'
-	has_many :pokemon_battles2, foreign_key: :pokemon2_id, class_name: 'PokemonBattle'
+	has_many :pokemon_battles1, foreign_key: :pokemon1_id, class_name: 'PokemonBattle', dependent: :destroy
+	has_many :pokemon_battles2, foreign_key: :pokemon2_id, class_name: 'PokemonBattle', dependent: :destroy
 	validates :name, 
 		presence: true,
 		uniqueness: true

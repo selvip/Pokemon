@@ -21,7 +21,7 @@
 	<% pokemon_battles.each do |pokemon_battle| %>
 		<table class="table table-bordered">
 			<tr class="bg-default">
-				<td width="40%">
+				<td width="40%" class="red">
 				<%= image_tag pokemon_battle.pokemon1_image, size: "250x250" %><br /><h1><kbd><%= pokemon_battle.pokemon1_name %></kbd></h1></td>
 				<td style="text-align: center;">
 					<ul class="list-group">
@@ -35,7 +35,7 @@
 				  		<li class="list-group-item"><%= link_to "Battle Logs", pokemon_battle_pokemon_battle_logs_path(pokemon_battle_id: pokemon_battle.id), class: 'btn btn-warning' %></li>  
 				  </ul>	
 				</td>
-			  <td style="text-align: right;"  width="40%"><%= image_tag pokemon_battle.pokemon2_image, size: "250x250" %><br /><h1><kbd><%= pokemon_battle.pokemon2_name %></kbd></h1>
+			  <td style="text-align: right;"  width="40%"  class="blue"><%= image_tag pokemon_battle.pokemon2_image, size: "250x250" %><br /><h1><kbd><%= pokemon_battle.pokemon2_name %></kbd></h1>
 			  </td>
 			</tr>	
 		</table>

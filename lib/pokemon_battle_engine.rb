@@ -125,11 +125,15 @@ class PokemonBattleEngine
 	end
 
 	def validate_current_pp?
-		if @pokemon_skill.current_pp > 0
-			flag = true
-		else
-			@pokemon_battle.errors.add(:base, "Current PP is 0")
+		if @pokemon_skill.nil?
 			flag = false
+		else
+			if @pokemon_skill.current_pp > 0
+				flag = true
+			else
+				@pokemon_battle.errors.add(:base, "Current PP is 0")
+				flag = false
+			end
 		end
 		flag
 	end

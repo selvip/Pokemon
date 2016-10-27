@@ -1,4 +1,14 @@
+<% content_for :jumbotron do %>
+	<div class="jumbotron center-block well">
+		<h1>Pokemon Battle Show</h1>
+	</div>
+<% end %>
+
 <div class="col-sm-12" id="versus">
+	<%= form_for @pokemon_battle do |f| %>
+		<%= f.select :attacker_id, ["Manual", "Me VS AI!", "Auto"], {}, {class: 'form-control form-group'} %>
+		<%= f.submit "START!", class: 'btn btn-primary form-group'%>
+	<% end %>
 	<%= image_tag "vs_image.png", size: "200x200"%>
 	<%= (content_tag(:div, @pokemon_battle.errors.full_messages.to_sentence , class: 'alert alert-danger', role: 'alert')) unless @pokemon_battle.errors.empty? %>
 	<h1 class="turn"><kbd><%= "#{@pokemon_battle.current_turn}" %></kbd></h1>

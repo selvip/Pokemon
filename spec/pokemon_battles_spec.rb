@@ -37,7 +37,19 @@ describe "Pokemon Battle's pokemons availability" do
 		@sample_2.defence = 10
 		@sample_2.speed = 10
 		@sample_2.current_experience = 10
-		@sample_2.save		
+		@sample_2.save
+
+		@sample_3 = ::Pokemon.new
+		@sample_3.pokedex = @pokedex_sample_1
+		@sample_3.name = 'Mongg'
+		@sample_3.level = 10
+		@sample_3.max_health_point = 10
+		@sample_3.current_health_point = 0
+		@sample_3.attack = 10
+		@sample_3.defence = 10
+		@sample_3.speed = 10
+		@sample_3.current_experience = 10
+		@sample_3.save				
 	end
 
 	it "Sample of true input" do
@@ -46,7 +58,6 @@ describe "Pokemon Battle's pokemons availability" do
 		pokemon_battle_sample.pokemon2_id = @sample_2.id
 		pokemon_battle_sample.current_turn = 1
 		pokemon_battle_sample.state = "Ongoing"
-		binding.pry
 		pokemon_battle_sample.pokemon1_max_health_point = @sample_1.max_health_point
 		pokemon_battle_sample.pokemon2_max_health_point = @sample_2.max_health_point
 		expect(pokemon_battle_sample.save).to eq(true)
@@ -88,6 +99,54 @@ describe "Pokemon Battle's pokemons availability" do
 		expect(pokemon_battle_sample.errors.include? :state).to eq(true)
 	end
 
+	it "Pokemon HP cannot be 0 to enter a battle." do
+		pokemon_battle_sample = ::PokemonBattle.new
+		pokemon_battle_sample.pokemon1_id = @sample_2.id
+		pokemon_battle_sample.pokemon2_id = @sample_3.id
+		pokemon_battle_sample.current_turn = 1
+		pokemon_battle_sample.state = "Ongoing"
+		pokemon_battle_sample.pokemon1_max_health_point = @sample_2.max_health_point
+		pokemon_battle_sample.pokemon2_max_health_point = @sample_3.max_health_point
+		expect(pokemon_battle_sample.save).to eq(false)
+		expect(pokemon_battle_sample.errors.include? :pokemon2_id).to eq(true)
+	end 
 
-	bundle exec rspec spec/pokemon_battles_test.rb
+	it "Max health point should not be zero" do
+		pokemon_battle_sample = ::PokemonBattle.new
+		pokemon_battle_sample.pokemon1_id = @sample_1.id
+		pokemon_battle_sample.pokemon2_id = @sample_2.id
+		pokemon_battle_sample.current_turn = 1
+		pokemon_battle_sample.state = "Ongoing"
+		pokemon_battle_sample.pokemon1_max_health_point = @sample_1.max_health_point
+		pokemon_battle_sample.pokemon2_max_health_point = 0
+		expect(pokemon_battle_sample.save).to eq(false)
+		expect(pokemon_battle_sample.errors.include? :pokemon2_max_health_point).to eq(true)
+	end
+
+	it "Pokemons going to the battle should be different." do
+		pokemon_battle_sample = ::PokemonBattle.new
+		pokemon_battle_sample.pokemon1_id = @sample_1.id
+		pokemon_battle_sample.pokemon2_id = @sample_1.id
+		pokemon_battle_sample.current_turn = 1
+		pokemon_battle_sample.state = "Finished"
+		pokemon_battle_sample.pokemon1_max_health_point = @sample_1.max_health_point
+		pokemon_battle_sample.pokemon2_max_health_point = @sample_1.max_health_point
+		expect(pokemon_battle_sample.save).to eq(false)
+		expect(pokemon_battle_sample.errors.include? :pokemon1_id).to eq(true)
+		expect(pokemon_battle_sample.errors.include? :pokemon2_id).to eq(true)
+	end
+
+
+	it "Turn should not be lower than 0" do
+		pokemon_battle_sample = ::PokemonBattle.new
+		pokemon_battle_sample.pokemon1_id = @sample_1.id
+		pokemon_battle_sample.pokemon2_id = @sample_2.id
+		pokemon_battle_sample.current_turn = -1
+		pokemon_battle_sample.state = "Ongoing"
+		pokemon_battle_sample.pokemon1_max_health_point = @sample_1.max_health_point
+		pokemon_battle_sample.pokemon2_max_health_point = @sample_2.max_health_point
+		expect(pokemon_battle_sample.save).to eq(false)
+		expect(pokemon_battle_sample.errors.include? :current_turn).to eq(true)
+	end
+
 end

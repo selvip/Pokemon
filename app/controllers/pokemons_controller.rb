@@ -61,8 +61,6 @@ class PokemonsController < ApplicationController
 
 	def destroy
 		@pokemon = Pokemon.find(params[:id])
-		list_pokemon_battles = PokemonBattle.all.select { |battle| battle if battle.pokemon1_id == @pokemon.id or battle.pokemon2_id == @pokemon.id}
-		list_pokemon_battles.each { |battle| battle.destroy }
 		@pokemon.destroy
 		redirect_to pokemons_path
 	end
