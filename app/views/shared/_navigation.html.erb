@@ -1,0 +1,13 @@
+<% if nav.count > 0 %>
+<div class="history-nav">
+	<ol class="breadcrumb well">
+    <% nav.each do |n| %>
+    	<% if n != nav.last %>
+        	<li><%= link_to n[:title], n[:url], class: 'btn btn-warning' %></li>
+        <%else%>
+        	<li><%= link_to n[:title], n[:url], class: 'btn disabled' %></li>
+        <% end %>
+    <% end %>
+    </ol>
+</div>
+<% end %>

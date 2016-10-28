@@ -6,6 +6,13 @@ class PokedexesController < ApplicationController
 
 	def new
 		@pokedex = Pokedex.new	
+		navigation_add("Pokedex Index", "#")
+	end
+
+	def new
+		@pokedex = Pokedex.new
+		navigation_add("Pokedex Index", pokedexes_path)
+		navigation_add("New Pokedex", "#")	
 	end
 
 	def create	
@@ -20,6 +27,8 @@ class PokedexesController < ApplicationController
 
 	def edit
 		@pokedex = Pokedex.find(params[:id])
+		navigation_add("Pokedex Index", pokedexes_path)
+		navigation_add("Edit Pokedex", "#")
 	end
 
 	def update
@@ -33,6 +42,8 @@ class PokedexesController < ApplicationController
 
 	def show
 		@pokedex = Pokedex.find(params[:id])
+		navigation_add("Pokedex Index", pokedexes_path)
+		navigation_add("Pokedex Show", "#")
 	end
 
 	def destroy

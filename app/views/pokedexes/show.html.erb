@@ -1,14 +1,13 @@
 <% content_for :jumbotron do %>
-	<div class="col-sm-12">
-		<div class="jumbotron center-block">
-			<h1>Pokedex Show</h1>
-		</div>
+	<div class="jumbotron center-block well">
+		<h1>Pokedex Show</h1>
 	</div>
 <% end %>
 
 <div class="col-sm-3">
-	<%= image_tag @pokedex.image_url %>
+	<%= image_tag @pokedex.image_url, size: "250x250" %>
 </div>
+
 <div class="col-sm-9">
 <table class="table table-inverse">
 	<tr>

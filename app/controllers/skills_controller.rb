@@ -1,11 +1,14 @@
 class SkillsController < ApplicationController
-
+	
 	def index
 		@skills = Skill.all
+		navigation_add("Skill Index", "#")
 	end
 
 	def new
 		@skill = Skill.new
+		navigation_add("Skill Index", skills_path)
+		navigation_add("New Skill", "#")
 	end
 
 	def create
@@ -20,6 +23,9 @@ class SkillsController < ApplicationController
 
 	def edit
 		@skill = Skill.find(params[:id])	
+		navigation_add("Skill Index", skills_path)
+		navigation_add("Skill Show", @skill)
+		navigation_add("Edit Skill", "#")
 	end
 
 	def update
@@ -35,6 +41,8 @@ class SkillsController < ApplicationController
 
 	def show
 		@skill = Skill.find(params[:id])
+		navigation_add("Skill Index", skills_path)
+		navigation_add("Skill Show", "#")
 	end
 
 	def destroy

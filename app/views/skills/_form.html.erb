@@ -2,7 +2,7 @@
 	<%= f.label 'Name', for: 'name' %>
 	<%= f.text_field :name, placeholder: 'Name', class: 'form-control form-group' %>
 	
-	<%= (content_tag(:div, @skill.errors.full_messages_for(:skill).to_sentence , class: 'alert alert-danger', role: 'alert')) if @skill.errors.include?(:skill) %>
+	<%= (content_tag(:div, @skill.errors.full_messages_for(:name).to_sentence , class: 'alert alert-danger', role: 'alert')) if @skill.errors.include?(:name) %>
 	
 	<%= f.label 'Power', for: 'power' %>
 	<%= f.number_field :power, placeholder: 'Power', class: 'form-control form-group' %>
@@ -15,27 +15,7 @@
 	<%= (content_tag(:div, @skill.errors.full_messages_for(:max_pp).to_sentence , class: 'alert alert-danger', role: 'alert')) if @skill.errors.include?(:max_pp) %>
 
 	<%= f.label 'Element Type', for: 'element_type' %>
-	<% elements = [
-			"Normal",
-			"Fire",
-			"Fighting",
-			"Water",
-			"Flying",
-			"Grass",
-			"Poison",
-			"Electric",
-			"Ground",
-			"Psychic",
-			"Rock",
-			"Ice",
-			"Bug",
-			"Dragon",
-			"Ghost",
-			"Dark",
-			"Steel",
-			"Fairy"
-		] %>
-	<%= f.select(:element_type, elements, {}, {class: 'form-control form-group'}) %>
+	<%= f.select(:element_type, Skill::ELEMENT, {}, {class: 'form-control form-group'}) %>
 
-	<%= f.submit "Post", class: "btn btn-primary form-group" %>
+	<%= f.submit "Submit", class: "btn btn-primary form-group" %>
 <% end %>

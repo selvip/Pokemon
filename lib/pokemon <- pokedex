@@ -1,0 +1,75 @@
+pokemon <- pokedex
+pokemon_skill <- pokemon && skill
+pokemon_battle <- pokemon && pokemon
+pokemon_battle_engine <- pokemon && pokemon && pokemon_skill
+pokemon_battle_log <- pokemon_battle
+
+controller test -> 
+	UI -> logic 
+
+POKEDEX << Least Crucial
+POKEMON << Crucial
+
+MODEL
+pokemon << sama
+pokemon_skill << sama
+pokemon_battle << ada attribut baru: :battle_type => auto, manual, AI
+pokemon_battle_engine <<
+pokemon_battle_log << tetap pokemon battle log
+
+VIEW
+pokemon << sama
+pokemon_skill << sama
+pokemon_battle << ada menu change battle 
+	->> show render
+				->> auto
+				->> manual
+				->> 2P mode 
+pokemon_battle_engine << change battle
+pokemon_battle_log << tetap pokemon battle log
+
+CONTROLLER
+pokemon << sama
+pokemon_skill << sama
+pokemon_battle <<  ### ada menu change battle 
+	->> show render
+				->> auto
+				->> manual
+				->> 2P mode 
+pokemon_battle_engine << change battle
+pokemon_battle_log << tetap pokemon battle log
+
+
+PokemonBattleAutoEngine
+-> new object: pokemon_battle
+-> copy some behaviour from PokemonBattleEngine
+ - attack
+ 	- list attack
+ - surrender
+ 	- list surrender
+
+
+PokemonBattleAiEngine
+-> new object: pokemon_battle?
+
+
+PokemonBattle Ai Engine
+-> start_ai_battle
+	-> return true for all values
+-> begin_ai_battle
+	-> pokemon_battle attributes
+	-> pokemon attributes
+	-> pokemon_battle_logs
+	-> pokemon_skill attributes
+
+PokemonBattleAutoEngine
+-> start_auto_battle
+-> begin_auto_battle
+
+-> special_case:
+	-> if loop forever? max loop=1000
+	-> if skill is not selected?
+	-> 
+
+
+a.send(:start_ai_battle_engine)

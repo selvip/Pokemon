@@ -1,0 +1,168 @@
+<% content_for :jumbotron do %>
+	<div class="jumbotron center-block well">
+		<h1>Pokemon Battle Show</h1>
+		<p> <%= @pokemon_battle.battle_type %></p>
+	</div>
+<% end %>
+
+<div class="col-sm-12" id="versus">
+	<%= image_tag "vs_image.png", size: "200x200"%>
+	<%= (content_tag(:div, @pokemon_battle.errors.full_messages.to_sentence , class: 'alert alert-danger', role: 'alert')) unless @pokemon_battle.errors.empty? %>
+	<h1 class="turn"><kbd><%= "#{@pokemon_battle.current_turn}" %></kbd></h1>
+</div>
+<div class="col-sm-6" id="pokemon1">
+	<h1><% if @pokemon_battle.pokemon_winner_id == @pokemon1.id and @pokemon_battle.state == "Finished" %>
+		<kbd><%= "WINNER" %></kbd>
+	<% elsif @pokemon_battle.state == "Finished" %>
+		<kbd><%= "LOSER" %></kbd>
+	<% end %></h1>
+	<pre>Pokemon 1</pre>
+	<%= image_tag @pokemon1.pokedex_image, size: "300x300" %>
+	<br /><br />
+	<table class="table table-bordered">
+		<tr>
+			<td class="bg-primary" width="50%">Name</td>
+			<th class="bg-primary"><%= @pokemon1.name %></th>
+		</tr>
+		<tr>
+			<td class="bg-primary">HP</td>
+			<th class="bg-primary"><%= @pokemon1.current_health_point %>
+				/
+				<%= @pokemon1.max_health_point %>
+			</th>
+		</tr>
+	</table>
+	<% unless @pokemon_battle.state == "Finished" %>
+	<table class="table table-bordered">
+		<tr>
+			<td class="bg-primary">Skills</td>
+			<th class="bg-primary">
+				<%= form_tag(pokemon_battle_attack_path(@pokemon_battle), method: 'post') do %>
+					<select class="form-control form-group" name="skill_id">
+						<% @pokemon1.pokemon_skills.each do |pokemon_skill| %>
+							<option value="<%= pokemon_skill.id %>">
+								<%= "#{pokemon_skill.skill_name} (#{pokemon_skill.current_pp}/#{pokemon_skill.skill_max_pp})" %>
+								</option>
+						<% end %>
+					</select>
+					<input type="hidden" name="attacker_id" value="<%= @pokemon1.id %>">
+			</th>
+		</tr>
+		<tr>
+			<td colspan="2">	
+				<ul class="list-inline">
+					<li><%= submit_tag "Attack", class: 'btn btn-danger' %></li>
+					<% end %>
+					<li>
+						<%= form_tag(pokemon_battle_surrender_path(@pokemon_battle), method: 'post') do %>
+						<%= submit_tag "Surrender", class: 'btn btn-warning' %>
+						<input type="hidden" name="surrender_id" value="<%= @pokemon1.id %>">
+						<% end %>
+					</li>
+					<li><%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon1_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if !@pokemon_battle.errors.include?(:pokemon1_id).blank? %></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	<% end %>
+</div>
+<div class="col-sm-6" id="pokemon2">
+	<h1>
+	<% if @pokemon_battle.pokemon_winner_id == @pokemon2.id and @pokemon_battle.state == "Finished" %>
+		<kbd><%= "WINNER" %></kbd>
+	<% elsif @pokemon_battle.state == "Finished" %>
+		<kbd><%= "LOSER" %></kbd>
+	<% end %>
+	</h1>
+	<pre>Pokemon 2</pre>
+	<%= image_tag @pokemon2.pokedex_image, size: "300x300" %>
+	<br /><br />
+	<table class="table table-bordered">
+		<tr>
+			<td width="50%">Name</td>
+			<th><%= @pokemon2.name %></th>
+		</tr>
+		<tr>
+			<td>HP</td>
+			<th><%= @pokemon2.current_health_point %>
+				/
+				<%= @pokemon2.max_health_point %>
+			</th>
+		</tr>
+	</table>
+
+	<% unless @pokemon_battle.state == "Finished" %>
+	<% if @pokemon_battle.battle_type == "Me vs Me" %>
+	<table class="table table-bordered">
+		<tr>
+			<td>Skills</td>
+			<th>
+				<%= form_tag(pokemon_battle_attack_path(@pokemon_battle), method: 'post') do %>
+					<select class="form-control form-group" name="skill_id">
+						<% @pokemon2.pokemon_skills.each do |pokemon_skill| %>
+							<option value="<%= pokemon_skill.id %>">
+								<%= "#{pokemon_skill.skill_name} (#{pokemon_skill.current_pp}/#{pokemon_skill.skill_max_pp})" %>
+								</option>
+						<% end %>
+					</select>
+					<input type="hidden" name="attacker_id" value="<%= @pokemon2.id %>">
+			</th>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<ul class="list-inline">
+					<li><%= submit_tag "Attack", class: 'btn btn-danger' %></li>
+					<% end %>
+					<li>
+						<%= form_tag(pokemon_battle_surrender_path(@pokemon_battle), method: 'post') do %>
+						<%= submit_tag "Surrender", class: 'btn btn-warning' %>
+						<input type="hidden" name="surrender_id" value="<%= @pokemon2.id %>">
+						<% end %>
+					</li>
+					<li><%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon2_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if !@pokemon_battle.errors.include?(:pokemon2_id).blank? %></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	<% end %>	
+	<% end %>
+</div>
+
+<div class="col-sm-12">
+	<table class="table table-bordered">
+		<thead class="bg-primary">
+			<tr>
+				<th>#</th>
+				<th>Battle ID</th>
+				<th>Attacker</th>
+				<th>Defender</th>
+				<th>Skill Name</th>
+				<th>Turn</th>
+				<th>Damage</th>
+				<th>Attacker HP</th>
+				<th>Defender HP</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% if !@pokemon_battle_logs.nil? %>
+				<% idx = @pokemon_battle_logs.count + 1 %>
+				<% pokemon_battle_logs = @pokemon_battle_logs.reverse %>
+				<% pokemon_battle_logs.each do |pokemon_battle_log| %>
+					<tr>
+						<td><%= idx-=1 %></td>
+						<td><%= pokemon_battle_log.pokemon_battle_id %></td>
+						<td><%= pokemon_battle_log.attacker_name %></td>
+						<td><%= pokemon_battle_log.defender_name %></td>
+						<td><%= pokemon_battle_log.skill_name if !pokemon_battle_log.skill_id.nil? %></td>
+						<td><%= pokemon_battle_log.turn %></td>
+						<td><%= pokemon_battle_log.damage %></td>
+						<td><%= pokemon_battle_log.attacker_current_health_point %></td>
+						<td><%= pokemon_battle_log.defender_current_health_point %></td>
+						<td><%= pokemon_battle_log.action_type %></td>
+					</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+</div>

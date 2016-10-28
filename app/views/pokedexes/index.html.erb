@@ -1,13 +1,11 @@
 <% content_for :jumbotron do %>
-	<div class="col-sm-12">
-		<div class="jumbotron center-block">
-			<h1>Pokedex</h1>
-		</div>
-	</div>
+	<div class="jumbotron center-block well">
+		<h1>Pokedex</h1>
+	</div>	
 <% end %>
 
 <div class="col-sm-12">
-<%= link_to 'Add a Pokedex', new_pokedex_path, class: "btn btn-primary"%>
+<%= link_to '+ New Pokedex', new_pokedex_path, class: "btn btn-primary"%>
 	<br /><br />
 	<table class="table table-inverse">
 		<thead>
@@ -43,5 +41,4 @@
 			<% end %>
 		</tbody>
 	</table>
-	<%= link_to 'Add a Pokedex', new_pokedex_path, class: "btn btn-primary"%>
 </div>

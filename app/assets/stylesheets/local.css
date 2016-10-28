@@ -12,3 +12,51 @@ main {
    margin: 400px 0 0 0;
    padding: 50px 0 100px 0;
 }
+#versus img{
+   top:75%;
+   left:40%;
+   z-index: 3;
+   position: absolute;
+}
+#versus .turn{
+   top:100%;
+   right:100%;
+   z-index: 4;
+   color: #fff;
+   font-size: 100px;
+   position: absolute;
+}
+#pokemon2{
+   border-radius: 0 25px 25px 0;
+   text-align: right;
+   padding-bottom: 50px;
+   background-color: #428bca;
+}
+#pokemon2 table{
+   text-align: center;
+   background-color: #d9534f;
+   color: #fff;
+}
+#pokemon1{
+   border-radius: 25px 0 0 25px;
+   text-align: left;
+   padding-bottom: 50px;
+   background-color: #d9534f;
+}
+#pokemon1 table{
+   text-align: center;
+   background-color: #428bca;
+   color: #fff;
+}
+.red {
+   border-radius: 5px 5px 5px 5px;
+   padding: 10px 0 10px 0;
+   background-color: #d9534f;
+   color: #FFFFFF;
+}
+.blue {
+   border-radius: 5px 5px 5px 5px;
+   padding: 10px 0 10px 0;
+   background-color: #428bca;
+   color: #FFFFFF;
+}
