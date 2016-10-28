@@ -58,6 +58,7 @@ describe "Pokemon Battle's pokemons availability" do
 		pokemon_battle_sample.pokemon2_id = @sample_2.id
 		pokemon_battle_sample.current_turn = 1
 		pokemon_battle_sample.state = "Ongoing"
+		pokemon_battle_sample.battle_type = "AutoMatch!"
 		pokemon_battle_sample.pokemon1_max_health_point = @sample_1.max_health_point
 		pokemon_battle_sample.pokemon2_max_health_point = @sample_2.max_health_point
 		expect(pokemon_battle_sample.save).to eq(true)
@@ -69,6 +70,7 @@ describe "Pokemon Battle's pokemons availability" do
 		pokemon_battle_sample.pokemon2_id = @sample_2.id
 		pokemon_battle_sample.current_turn = 1
 		pokemon_battle_sample.state = "Ongoing"
+		pokemon_battle_sample.battle_type = "AutoMatch!"
 		pokemon_battle_sample.pokemon1_max_health_point = @sample_1.max_health_point
 		pokemon_battle_sample.pokemon2_max_health_point = @sample_2.max_health_point
 		expect(pokemon_battle_sample.save).to eq(false)
@@ -81,6 +83,7 @@ describe "Pokemon Battle's pokemons availability" do
 		pokemon_battle_sample.pokemon2_id = ['bebek', 'sepatu']
 		pokemon_battle_sample.current_turn = 1
 		pokemon_battle_sample.state = "Ongoing"
+		pokemon_battle_sample.battle_type = "AutoMatch!"
 		pokemon_battle_sample.pokemon1_max_health_point = @sample_1.max_health_point
 		pokemon_battle_sample.pokemon2_max_health_point = @sample_2.max_health_point
 		expect(pokemon_battle_sample.save).to eq(false)
@@ -93,6 +96,7 @@ describe "Pokemon Battle's pokemons availability" do
 		pokemon_battle_sample.pokemon2_id = @sample_2.id
 		pokemon_battle_sample.current_turn = 1
 		pokemon_battle_sample.state = "State"
+		pokemon_battle_sample.battle_type = "AutoMatch!"
 		pokemon_battle_sample.pokemon1_max_health_point = @sample_1.max_health_point
 		pokemon_battle_sample.pokemon2_max_health_point = @sample_2.max_health_point
 		expect(pokemon_battle_sample.save).to eq(false)
@@ -105,6 +109,7 @@ describe "Pokemon Battle's pokemons availability" do
 		pokemon_battle_sample.pokemon2_id = @sample_3.id
 		pokemon_battle_sample.current_turn = 1
 		pokemon_battle_sample.state = "Ongoing"
+		pokemon_battle_sample.battle_type = "AutoMatch!"
 		pokemon_battle_sample.pokemon1_max_health_point = @sample_2.max_health_point
 		pokemon_battle_sample.pokemon2_max_health_point = @sample_3.max_health_point
 		expect(pokemon_battle_sample.save).to eq(false)
@@ -117,6 +122,7 @@ describe "Pokemon Battle's pokemons availability" do
 		pokemon_battle_sample.pokemon2_id = @sample_2.id
 		pokemon_battle_sample.current_turn = 1
 		pokemon_battle_sample.state = "Ongoing"
+		pokemon_battle_sample.battle_type = "AutoMatch!"
 		pokemon_battle_sample.pokemon1_max_health_point = @sample_1.max_health_point
 		pokemon_battle_sample.pokemon2_max_health_point = 0
 		expect(pokemon_battle_sample.save).to eq(false)
@@ -129,6 +135,7 @@ describe "Pokemon Battle's pokemons availability" do
 		pokemon_battle_sample.pokemon2_id = @sample_1.id
 		pokemon_battle_sample.current_turn = 1
 		pokemon_battle_sample.state = "Finished"
+		pokemon_battle_sample.battle_type = "AutoMatch!"
 		pokemon_battle_sample.pokemon1_max_health_point = @sample_1.max_health_point
 		pokemon_battle_sample.pokemon2_max_health_point = @sample_1.max_health_point
 		expect(pokemon_battle_sample.save).to eq(false)
@@ -143,6 +150,7 @@ describe "Pokemon Battle's pokemons availability" do
 		pokemon_battle_sample.pokemon2_id = @sample_2.id
 		pokemon_battle_sample.current_turn = -1
 		pokemon_battle_sample.state = "Ongoing"
+		pokemon_battle_sample.battle_type = "AutoMatch!"
 		pokemon_battle_sample.pokemon1_max_health_point = @sample_1.max_health_point
 		pokemon_battle_sample.pokemon2_max_health_point = @sample_2.max_health_point
 		expect(pokemon_battle_sample.save).to eq(false)

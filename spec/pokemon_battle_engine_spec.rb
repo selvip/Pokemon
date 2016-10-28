@@ -69,6 +69,7 @@ describe "Pokemon Battle Engine Validation" do
 		@pokemon_battle_sample.pokemon2_id = @sample_2.id
 		@pokemon_battle_sample.current_turn = 1
 		@pokemon_battle_sample.state = "Ongoing"
+		@pokemon_battle_sample.battle_type = "Me vs Me"
 		@pokemon_battle_sample.pokemon1_max_health_point = @sample_1.max_health_point
 		@pokemon_battle_sample.pokemon2_max_health_point = @sample_2.max_health_point
 		@pokemon_battle_sample.save
@@ -79,7 +80,9 @@ describe "Pokemon Battle Engine Validation" do
 			pokemon_battle: @pokemon_battle_sample,
 			attacker_id: @pokemon_battle_sample.pokemon1_id,
 			skill_id:  @ps_sample_1.id)
+
 		expect(pokemon_battle_engine_sample.list_attack_validations?).to eq(true)
+		
 		pokemon_battle_engine_sample.attack
 		expect(pokemon_battle_engine_sample.save_attack).to eq(true)
 	end

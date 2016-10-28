@@ -4,6 +4,7 @@ class PokemonBattleEngine
 		@pokemon_battle = pokemon_battle
 		@attacker = Pokemon.find(attacker_id)
 
+
 		case attacker_id.to_i
 		when @pokemon_battle.pokemon1_id
 			@defender = Pokemon.find(@pokemon_battle.pokemon2.id)

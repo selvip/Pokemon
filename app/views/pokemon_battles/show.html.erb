@@ -1,6 +1,7 @@
 <% content_for :jumbotron do %>
 	<div class="jumbotron center-block well">
 		<h1>Pokemon Battle Show</h1>
+		<p> <%= @pokemon_battle.battle_type %></p>
 	</div>
 <% end %>
 
@@ -15,7 +16,7 @@
 	<% elsif @pokemon_battle.state == "Finished" %>
 		<kbd><%= "LOSER" %></kbd>
 	<% end %></h1>
-	<pre>Pokemon 1 <%= @pokemon_battle.battle_type %></pre>
+	<pre>Pokemon 1</pre>
 	<%= image_tag @pokemon1.pokedex_image, size: "300x300" %>
 	<br /><br />
 	<table class="table table-bordered">
@@ -91,6 +92,7 @@
 	</table>
 
 	<% unless @pokemon_battle.state == "Finished" %>
+	<% if @pokemon_battle.battle_type == "Me vs Me" %>
 	<table class="table table-bordered">
 		<tr>
 			<td>Skills</td>
@@ -122,6 +124,7 @@
 			</td>
 		</tr>
 	</table>
+	<% end %>	
 	<% end %>
 </div>
 

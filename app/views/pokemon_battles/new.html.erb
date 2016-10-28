@@ -13,6 +13,7 @@
 	<div class="col-sm-2">
 		<center>
 			<%= image_tag 'vs_image.png', size: "100x100"%>
+			<%= f.select(:battle_type, @list_battle_types, {}, {class: 'form-control form-group'})%>
 			<%= f.submit 'Battle!', class: 'btn btn-warning'%>
 		</center>
 	</div>

@@ -45,7 +45,7 @@ class PokemonsController < ApplicationController
 		@pokemon = Pokemon.find(params[:id])
 		@pokedex = Pokedex.find(@pokemon.pokedex_id)
 		navigation_add("Pokemon Index", pokemons_path)
-		navigation_add("Pokemon Show", @pokemon)
+		navigation_add("Pokemon Show", pokemon_path(@pokemon))
 		navigation_add("Pokemon Edit", "#")
 	end
 
@@ -93,7 +93,7 @@ class PokemonsController < ApplicationController
 		cant_be_healed = []
 		@pokemons.each do |pokemon|
 			flag = true
-			result = pokemon.pokemon_battles.where(state: 'Ongoing')
+			result = pokemon.pokemon_battles1.where(state: 'Ongoing') + pokemon.pokemon_battles2.where(state: 'Ongoing')
 			if result.blank?
 				pokemon.current_health_point = pokemon.max_health_point
 				pokemon.pokemon_skills.each do |pokemon_skill| 
