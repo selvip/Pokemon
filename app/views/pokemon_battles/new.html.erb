@@ -1,0 +1,25 @@
+<% content_for :jumbotron do %>
+	<div class="jumbotron center-block well">
+		<h1>Select Pokemon</h1>
+	</div>
+<% end %>
+
+<%= form_for @pokemon_battle do |f| %>
+	<div class="col-sm-5 red">
+		<%= f.label 'Select Pokemon 1', for: 'pokemon1_id' %>
+		<%= f.select(:pokemon1_id, @list_pokemons, {}, {class: 'form-control form-group'}) %>
+		<%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon1_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon_battle.errors.include?(:pokemon1_id) %>
+	</div>
+	<div class="col-sm-2">
+		<center>
+			<%= image_tag 'vs_image.png', size: "100x100"%>
+			<%= f.select(:battle_type, @list_battle_types, {}, {class: 'form-control form-group'})%>
+			<%= f.submit 'Battle!', class: 'btn btn-warning'%>
+		</center>
+	</div>
+	<div class="col-sm-5 blue">
+		<%= f.label 'Select Pokemon 2', for: 'pokemon2_id' %>
+		<%= f.select(:pokemon2_id, @list_pokemons, {}, {class: 'form-control form-group'}) %>
+		<%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon2_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokemon_battle.errors.include?(:pokemon2_id) %>
+	</div>
+<% end %>

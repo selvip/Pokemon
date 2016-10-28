@@ -1,11 +1,16 @@
 class SkillsController < ApplicationController
+	
 	def index
 		@skills = Skill.all
+		navigation_add("Skill Index", "#")
 	end
 
 	def new
 		@skill = Skill.new
+		navigation_add("Skill Index", skills_path)
+		navigation_add("New Skill", "#")
 	end
+
 	def create
 		@skill = Skill.new(skill_params)
 		if @skill.valid?
@@ -16,8 +21,28 @@ class SkillsController < ApplicationController
 		end
 	end
 
+	def edit
+		@skill = Skill.find(params[:id])	
+		navigation_add("Skill Index", skills_path)
+		navigation_add("Skill Show", @skill)
+		navigation_add("Edit Skill", "#")
+	end
+
+	def update
+		@skill = Skill.find(params[:id])
+		@skill.update(skill_params)
+		if @skill.valid?
+			@skill.save
+			redirect_to @skill
+		else
+			render 'edit'
+		end
+	end
+
 	def show
 		@skill = Skill.find(params[:id])
+		navigation_add("Skill Index", skills_path)
+		navigation_add("Skill Show", "#")
 	end
 
 	def destroy
