@@ -34,8 +34,6 @@ ActiveRecord::Schema.define(version: 20161017093646) do
     t.string   "element_type"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end
