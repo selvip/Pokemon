@@ -37,6 +37,24 @@ class PokemonsController < ApplicationController
 		list_skill = Skill.all
 		@list_names_ids = list_skill.map { |sk| [sk.name, sk.id] }
 
+		number_of_battle = ActiveRecord::Base.connection.execute(
+			"select count(*) from pokemons, pokemon_battles 
+			where pokemons.id = #{@pokemon.id}
+			and (pokemons.id = pokemon_battles.pokemon1_id
+			or pokemons.id = pokemon_battles.pokemon2_id)").to_a
+		number_of_wins = ActiveRecord::Base.connection.execute(
+			"select count(*) from pokemons, pokemon_battles
+			where pokemons.id = #{@pokemon.id}
+			and pokemon_battles.pokemon_winner_id = pokemons.id").to_a
+		number_of_loss = ActiveRecord::Base.connection.execute(
+			"select count(*) from pokemons, pokemon_battles
+			where pokemons.id = #{@pokemon.id}
+			and pokemon_battles.pokemon_loser_id = pokemons.id").to_a
+		@pokemon_stats = {}
+		@pokemon_stats[:battles] = number_of_battle.first["count"]
+		@pokemon_stats[:wins] = number_of_wins.first["count"]
+		@pokemon_stats[:loss] = number_of_loss.first["count"]
+		
 		navigation_add("Pokemon Index", pokemons_path)
 		navigation_add("Pokemon Show", "#")
 	end
