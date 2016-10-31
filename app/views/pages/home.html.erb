@@ -6,3 +6,144 @@
 		<h2>Welcome to Pokemon Game!</h2>
 	</div>
 <% end %>
+
+<div class="col-sm-12 grass-title">
+	<ul class="nav nav-pills" role="tablist">
+		<% Skill::ELEMENT.each do |element| %>
+			<li><a role="presentation" data-toggle="tab" href="#<%= element %>"><%= "#{element}" %></a></li>
+		<% end %>
+	</ul>
+</div>
+
+<div class="col-sm-12 tab-content">
+	<% @element.each do |element| %>
+		<div role="tab-panel" id="<%= element[:element] %>" class="tab-pane">
+				
+			<div class="col-sm-12 grass-title">
+				<h1>Most Dangerous Pokemon</h1>
+				<% idx = 0 %>
+				<% element[:pokemon_winners_details].each do |pokemon_winner| %>
+					<div class="col-sm-4">
+						<table class="table table-bordered well">
+							<tr class="red">
+								<td colspan="2"><h1><center><%= idx+=1 %></center></h1></td>
+							</tr>
+							<tr>
+								<td colspan="2"><center><%= image_tag pokemon_winner[:pokemon].pokedex_image, size: "250x250"%></center></td>
+							</tr>
+							<tr>
+								<td class="grass" width="50%">Name</td>
+								<td class="grass-sub"><%= pokemon_winner[:pokemon].name %></td>
+							</tr>
+							<tr>
+								<td class="grass">Winning Number</td>
+								<td class="grass-sub"><%= pokemon_winner[:winning_number] %> </td>
+							</tr>
+							<tr>
+								<td class="grass">Battle Number</td>
+								<td class="grass-sub"><%= pokemon_winner[:battle_number] %></td>
+							</tr>
+							<tr>
+								<td class="grass">Winning Percentage</td>
+								<td class="grass-sub"><%= number_to_percentage(pokemon_winner[:win_percent]) %></td>
+							</tr>
+						</table>
+					</div>
+				<% end %>
+			</div>
+
+			<div class="col-sm-12 grass-title">
+				<h1>Least Dangerous Pokemon</h1>
+				<% idx = 0 %>
+				<% element[:pokemon_losers_details].each do |pokemon_loser| %>
+					<div class="col-sm-4">
+						<table class="table table-bordered well">
+							<tr class="blue">
+								<td colspan="2"><h1><center><%= idx+=1 %></center></h1></td>
+							</tr>
+							<tr>
+								<td colspan="2"><center><%= image_tag pokemon_loser[:pokemon].pokedex_image, size: "250x250"%></center></td>
+							</tr>
+							<tr>
+								<td class="grass" width="50%">Name</td>
+								<td class="grass-sub"><%= pokemon_loser[:pokemon].name %></td>
+							</tr>
+							<tr>
+								<td class="grass">Losing Numbers</td>
+								<td class="grass-sub"><%= pokemon_loser[:losing_number] %> </td>
+							</tr>
+							<tr>
+								<td class="grass">Battle Number</td>
+								<td class="grass-sub"><%= pokemon_loser[:battle_number] %></td>
+							</tr>
+							<tr>
+								<td class="grass">Losing Percentage</td>
+								<td class="grass-sub"><%= number_to_percentage(pokemon_loser[:lose_percent]) %></td>
+							</tr>
+						</table>
+					</div>
+				<% end %>
+			</div>
+
+			<div class="col-sm-12 grass-title">
+				<h1>Most Surrender Pokemons</h1>
+				<% idx = 0 %>
+				<% element[:surrenders].each do |surrender| %>
+					<div class="col-sm-4">
+						<table class="table table-bordered well">
+							<tr class="red">
+								<td colspan="2"><h1><center><%= idx+=1 %></center></h1></td>
+							</tr>
+							<tr>
+								<td colspan="2"><%= image_tag surrender[:pokemon].pokedex_image, size: "250x250" %></td>
+							</tr>
+							<tr>
+								<td class="grass" width="50%">Name</td>
+								<td class="grass-sub"><%= link_to surrender[:pokemon].name, pokemon_path(surrender[:pokemon]) %></td>
+							</tr>
+							<tr>
+								<td class="grass">Number of Surrender</td>
+								<td class="grass-sub"><%= surrender[:surrender_times] %></td>
+							</tr>
+						</table>
+					</div>
+				<% end %>
+			</div>
+
+			<div class="col-sm-12 grass-title">
+				<h1>Most Popular Skills</h1>
+				<% idx = 0 %>
+				<% element[:skills].each do |skill| %>
+					<div class="col-sm-4">
+						<table class="table table-bordered well">
+							<tr class="red">
+								<td colspan="2"><h1><center><%= idx+=1 %></center></h1></td>
+							</tr>
+							<tr>
+								<td class="grass" width="50%">Name</td>
+								<td class="grass-sub"><%= link_to skill[:skill].name, skill_path(skill[:skill]) %></td>
+							</tr>
+							<tr>
+								<td class="grass">Element Type</td>
+								<td class="grass-sub"><kbd><%= skill[:skill].element_type %></kbd></td>
+							</tr>
+							<tr>
+								<td class="grass">Times Used</td>
+								<td class="grass-sub"><%= skill[:times_used] %></td>
+							</tr>
+							<tr>
+								<td class="grass">Power</td>
+								<td class="grass-sub"><%= skill[:skill].power %></td>
+							</tr>
+							<tr>
+								<td class="grass">Max PP</td>
+								<td class="grass-sub"><%= skill[:skill].max_pp %></td>
+							</tr>
+						</table>
+					</div>
+				<% end %>
+			</div>
+
+		</div>
+	<% end %>
+</div>

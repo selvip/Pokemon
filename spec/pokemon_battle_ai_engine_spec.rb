@@ -86,9 +86,9 @@ describe "Pokemon Battle AI Engine Validation" do
 			pokemon_battle: @pokemon_battle_sample,
 			attacker_id: @pokemon_battle_sample.pokemon1_id,
 			skill_id: @ps_sample_1.id)
-			pokemon_battle_engine_sample.list_attack_validations?
-			pokemon_battle_engine_sample.attack
-			expect(pokemon_battle_engine_sample.save_attack).to eq(true)
+		pokemon_battle_engine_sample.list_attack_validations?
+		pokemon_battle_engine_sample.attack
+		expect(pokemon_battle_engine_sample.save_attack).to eq(true)
 
 		pokemon_battle_ai_engine_sample = PokemonBattleAiEngine.new(
 		 	pokemon_battle: @pokemon_battle_sample)
@@ -128,21 +128,6 @@ describe "Pokemon Battle AI Engine Validation" do
 
 	describe "PokemonBattleAiEngine's start_ai_battle" do
 		it "Pokemon state invalid " do
-			pokemon_battle_engine_sample = PokemonBattleEngine.new(
-				pokemon_battle: @pokemon_battle_sample,
-				attacker_id: @pokemon_battle_sample.pokemon1_id,
-				skill_id: @ps_sample_1.id)
-			pokemon_battle_engine_sample.list_attack_validations?
-			pokemon_battle_engine_sample.attack
-			expect(pokemon_battle_engine_sample.save_attack).to eq(true)
-
-			pokemon_battle_ai_engine_sample = PokemonBattleAiEngine.new(
-			 	pokemon_battle: @pokemon_battle_sample)
-			pokemon_battle_ai_engine_sample.begin_ai_battle
-			expect(@pokemon_battle_sample.current_turn).to eq(3)
-			expect(@pokemon_battle_sample.pokemon_battle_logs.count).to eq(2)
-		end
-		it "Pokemon battle_type invalid " do
 			pokemon_battle_sample = ::PokemonBattle.new
 			pokemon_battle_sample.pokemon1_id = @sample_1.id
 			pokemon_battle_sample.pokemon2_id = @sample_2.id
@@ -169,12 +154,12 @@ describe "Pokemon Battle AI Engine Validation" do
 			expect(pokemon_battle_sample.pokemon_battle_logs.count).to eq(1)
 			expect(pokemon_battle_sample.state).to eq("Ongoing")
 		end
-	end
 
-	describe "Special cases PokemonBattleEngine" do
-		it "If skill loops forever" do
-			
-		end
+		it "When pokemon 1 hasn't attack" do
+			pokemon_battle_sample = PokemonBattleAiEngine.new(
+				pokemon_battle: @pokemon_battle_sample)
+			pokemon_battle_sample.begin_ai_battle
+			expect(@pokemon_battle_sample.current_turn).to eq(1)
+			expect(PokemonBattleLog.count).to eq(0)
 	end
-
 end

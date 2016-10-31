@@ -41,7 +41,7 @@ pokemon_battle_log << tetap pokemon battle log
 
 
 PokemonBattleAutoEngine
--> new object: pokemon_battle
+-> new objelct: pokemon_battle
 -> copy some behaviour from PokemonBattleEngine
  - attack
  	- list attack

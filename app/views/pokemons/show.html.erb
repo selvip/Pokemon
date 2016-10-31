@@ -54,6 +54,18 @@
 			<td class="bg-primary">Current Experience</td>
 			<td><%= @pokemon.current_experience %></td>
 		</tr>
+		<tr>
+			<td class="bg-primary">Number of Battles</td>
+			<td><%= @pokemon_stats[:battles] %></td>
+		</tr>
+		<tr>
+			<td class="bg-primary">Number of Wins</td>
+			<td><%= @pokemon_stats[:wins] %></td>
+		</tr>
+		<tr>
+			<td class="bg-primary">Number of Loss</td>
+			<td><%= @pokemon_stats[:loss] %></td>
+		</tr>
 	</table>
 </div>
 
