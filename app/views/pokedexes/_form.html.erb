@@ -25,7 +25,6 @@
 	<%= (content_tag(:div, @pokedex.errors.full_messages_for(:base_speed).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokedex.errors.include?(:base_speed) %>
 
 	<%= f.label 'Element Type', for: 'element_type' %>
-
 	<%= f.select :element_type, Skill::ELEMENT, {}, {class: 'form-control form-group'} %>
 
 	<%= (content_tag(:div, @pokedex.errors.full_messages_for(:element_type).to_sentence , class: 'alert alert-danger', role: 'alert')) if @pokedex.errors.include?(:element_type) %>

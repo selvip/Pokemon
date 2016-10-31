@@ -2,6 +2,10 @@ class PokedexesController < ApplicationController
 
 	def index
 		@pokedexes = Pokedex.all
+	end
+
+	def new
+		@pokedex = Pokedex.new	
 		navigation_add("Pokedex Index", "#")
 	end
 

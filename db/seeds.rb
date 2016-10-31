@@ -35,3 +35,4 @@
 	end
 
 	puts "There are now #{Pokedex.count} rows in the Pokedex Table."
+>>>>>>> 76553ef309d5e281772bbeedb73a510e48a8aed2
