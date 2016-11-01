@@ -17,10 +17,18 @@ class PokemonSkillsController < ApplicationController
 			@pokemon_skill.save
 			redirect_to @pokemon
 		else
-			@pokemon = @pokemon_skill.pokemon
 			@pokemon_skills = @pokemon.pokemon_skills
-			@pokedex = Pokedex.find(@pokemon.pokedex_id)
-			@list_names_ids = Skill.all.map { |sk| [sk.name, sk.id] }
+			@pokemon_skill = PokemonSkill.new
+			@pokemon_skill.pokemon_id = @pokemon.id
+			list_skill = Skill.all
+			@list_names_ids = list_skill.map { |sk| [sk.name, sk.id] }
+
+			pokemon_show_award = PokemonShowAward.new(
+				pokemon: @pokemon)
+			@pokemon_stats = pokemon_show_award.pokemon_stats
+			
+			navigation_add("Pokemon Index", pokemons_path)
+			navigation_add("Pokemon Show", "#")
 			render 'pokemons/show'
 		end
 	end
