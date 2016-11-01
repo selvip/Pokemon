@@ -2,6 +2,17 @@ class SkillsController < ApplicationController
 	
 	def index
 		@skills = Skill.all
+
+		@element_type = []
+		Skill::ELEMENT.each do |element|
+			skill_award = SkillAward.new(element_type: element)
+			h = {}
+			h[:element] = element
+			h[:best_skills] = skill_award.most_used_skill
+			h[:all_skills] = skill_award.all_normal_skill
+			@element_type << h
+		end 
+
 		navigation_add("Skill Index", "#")
 	end
 

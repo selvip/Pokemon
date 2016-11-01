@@ -1,33 +1,72 @@
 <% content_for :jumbotron do %>
 	<div class="jumbotron center-block well">
 		<h1>Skill</h1>
-	</div>
+	</div>	
 <% end %>
 
-<div class="col-sm-12">
-	<%= link_to '+ New Skill', new_skill_path, class: 'btn btn-primary' %>
-	<br />
-	<br />
-	<table class="table table-inverse">
-		<thead>
-			<tr class="bg-primary">
-				<th>#</th>
-				<th>Name</th>
-				<th>Power</th>
-				<th>Max PP</th>
-				<th>Element Type</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @skills.each do |skill| %>
-				<tr>
-					<th><%= skill.id %></th>
-					<td><%= link_to skill.name, skill %></td>
-					<td><%= skill.power %></td>
-					<td><%= skill.max_pp %></td>
-					<td><%= skill.element_type %></td>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
+<div class="col-sm-12 grass-title">
+	<ul class="nav nav-pills" role="tablist">
+		<% Skill::ELEMENT.each do |element| %>
+			<li><a role="presentation" data-toggle="tab" href="#<%= element %>"><%= "#{element}" %></a></li>
+		<% end %>
+	</ul>
 </div>
+
+<div class="col-sm-12 tab-content">
+	<% @element_type.each do |element| %>
+		<div role="tab-panel" id="<%= element[:element] %>" class="tab-pane">
+
+		<div class="col-sm-12 grass-title">
+			<h1>Highest Pokedex Level</h1>
+			<% idx = 0 %>
+			<% element[:best_skills].each do |skill| %>
+			<div class="col-sm-4">
+				<table class="table table-bordered well">
+					<tr class="red">
+						<td colspan="2"><h1><center><%= idx+=1 %></center></h1></td>
+					</tr>
+					<tr>
+						<td class="grass" width="50%">Name</td>
+						<td class="grass-sub"><kbd><%= skill[:skill].name %></kbd></td>
+					</tr>
+					<tr>
+						<td class="grass">Times used</td>
+						<td class="grass-sub"><%= skill[:count] %> </td>
+					</tr>
+					</table>
+				</div>
+			<% end %>
+		</div>
+
+		<div class="col-sm-12 grass-title">
+				<h1>All Pokedexes</h1>
+				<% idx = 0 %>
+				<% element[:all_skills].each do |skill| %>
+					<div class="col-sm-4">
+						<table class="table table-bordered well">
+							<tr class="red">
+								<td colspan="2"><h1><center><%= idx+=1 %></center></h1></td>
+							</tr>
+							<tr>
+								<td class="grass" width="50%">Name</td>
+								<td class="grass-sub"><kbd><%= skill[:skill].name %></kbd></td>
+							</tr>
+							<tr>
+								<td class="grass">Power</td>
+								<td class="grass-sub"><%= skill[:skill].power %> </td>
+							</tr>
+							<tr>
+								<td class="grass">Max PP</td>
+								<td class="grass-sub"><%= skill[:skill].max_pp %> </td>
+							</tr>
+						</table>
+					</div>
+				<% end %>
+			</div>
+
+		</div>
+	<% end %>
+</div>
+
+
+

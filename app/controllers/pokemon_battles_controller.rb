@@ -26,7 +26,10 @@ class PokemonBattlesController < ApplicationController
 				redirect_to @pokemon_battle
 			end
 		else
-			@list_pokemons = Pokemon.all.map { |poke| [poke.name, poke.id] }
+			@list_pokemons = []
+			Pokemon.all.each { |poke| @list_pokemons << [poke.name, poke.id] if poke.current_health_point > 0 }
+			@list_battle_types = []
+			PokemonBattle::BATTLE_TYPE.each { |type| @list_battle_types << [type, type]}			
 			render 'new'
 		end
 	end

@@ -2,10 +2,17 @@ class PokedexesController < ApplicationController
 
 	def index
 		@pokedexes = Pokedex.all
-	end
-
-	def new
-		@pokedex = Pokedex.new	
+		
+		@element_type = []
+		Skill::ELEMENT.each do |element|
+			pokedex_award = PokedexAward.new(element_type: element)
+			h = {}
+			h[:element] = element
+			h[:best_pokedexes] = pokedex_award.level
+			h[:all_pokedexes] = pokedex_award.all_normal_pokedex
+			@element_type << h
+		end
+		
 		navigation_add("Pokedex Index", "#")
 	end
 
@@ -42,6 +49,7 @@ class PokedexesController < ApplicationController
 
 	def show
 		@pokedex = Pokedex.find(params[:id])
+
 		navigation_add("Pokedex Index", pokedexes_path)
 		navigation_add("Pokedex Show", "#")
 	end

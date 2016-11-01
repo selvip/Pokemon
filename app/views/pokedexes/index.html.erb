@@ -4,41 +4,76 @@
 	</div>	
 <% end %>
 
-<div class="col-sm-12">
-<%= link_to '+ New Pokedex', new_pokedex_path, class: "btn btn-primary"%>
-	<br /><br />
-	<table class="table table-inverse">
-		<thead>
-		  <tr class="bg-primary">
-		    <th>#</th>
-		    <th>Name</th>
-		    <th>Base Health Point</th>
-		    <th>Base Attack</th>
-		    <th>Base Defence</th>
-		    <th>Base Speed</th>
-		    <th>Base Element Type</th>
-		    <th colspan="2"><center>Action</center></th>
-		  </tr>
-		</thead>
-		<tbody>
-			<% @pokedexes.each do |pokedex| %>
-				<tr>
-					<th><%= pokedex.id %></th>
-					<td><%= link_to pokedex.name, pokedex %></td>
-					<td><%= pokedex.base_health_point %></td>
-					<td><%= pokedex.base_attack %></td>
-					<td><%= pokedex.base_defence %></td>
-					<td><%= pokedex.base_speed %></td>
-					<td><%= pokedex.element_type %></td>
-					<td><%= link_to 'Edit', edit_pokedex_path(pokedex), class: 'btn btn-default' %></td>
-					<td><center>
-						<%= button_to 'Destroy', pokedex, 
-						method: :delete,
-						class: 'btn btn-danger',
-					  data: { confirm: 'Are you sure?' } %>  	
-				  </center></td>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
+<div class="col-sm-12 grass-title">
+	<ul class="nav nav-pills" role="tablist">
+		<% Skill::ELEMENT.each do |element| %>
+			<li><a role="presentation" data-toggle="tab" href="#<%= element %>"><%= "#{element}" %></a></li>
+		<% end %>
+	</ul>
+</div>
+
+<div class="col-sm-12 tab-content">
+	<% @element_type.each do |element| %>
+		<div role="tab-panel" id="<%= element[:element] %>" class="tab-pane">
+
+		<div class="col-sm-12 grass-title">
+				<h1>Highest Pokedex Level</h1>
+				<% idx = 0 %>
+				<% element[:best_pokedexes].each do |pokedex| %>
+					<div class="col-sm-4">
+						<table class="table table-bordered well">
+							<tr class="red">
+								<td colspan="2"><h1><center><%= idx+=1 %></center></h1></td>
+							</tr>
+							<tr>
+								<td colspan="2"><center><%= image_tag pokedex[:pokedex].image_url, size: "250x250"%></center></td>
+							</tr>
+							<tr>
+								<td class="grass" width="50%">Name</td>
+								<td class="grass-sub"><%= pokedex[:pokedex].name %></td>
+							</tr>
+							<tr>
+								<td class="grass">Level</td>
+								<td class="grass-sub"><%= pokedex[:level] %> </td>
+							</tr>
+						</table>
+					</div>
+				<% end %>
+			</div>
+
+			<div class="col-sm-12 grass-title">
+				<h1>Other Pokedexes</h1>
+				<% idx = 0 %>
+				<% element[:all_pokedexes].each do |pokedex| %>
+					<div class="col-sm-4">
+						<table class="table table-bordered well">
+							<tr class="red">
+								<td colspan="2"><h1><center><%= idx+=1 %></center></h1></td>
+							</tr>
+							<tr>
+								<td colspan="2"><center><%= image_tag pokedex[:pokedex].image_url, size: "250x250"%></center></td>
+							</tr>
+							<tr>
+								<td class="grass" width="50%">Name</td>
+								<td class="grass-sub"><%= pokedex[:pokedex].name %></td>
+							</tr>
+							<tr>
+								<td class="grass">Base HP</td>
+								<td class="grass-sub"><%= pokedex[:pokedex].base_health_point %> </td>
+							</tr>
+							<tr>
+								<td class="grass">Base Attack</td>
+								<td class="grass-sub"><%= pokedex[:pokedex].base_attack %> </td>
+							</tr>
+							<tr>
+								<td class="grass">Base Defence</td>
+								<td class="grass-sub"><%= pokedex[:pokedex].base_defence %> </td>
+							</tr>
+						</table>
+					</div>
+				<% end %>
+			</div>
+
+		</div>
+	<% end %>
 </div>

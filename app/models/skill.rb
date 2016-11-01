@@ -1,7 +1,7 @@
 class Skill < ApplicationRecord
 	ELEMENT = [
 			'normal',
-			'fight',
+			'fighting',
 			'flying',
 			'poison',
 			'ground',

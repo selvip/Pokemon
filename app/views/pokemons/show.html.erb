@@ -63,8 +63,33 @@
 			<td><%= @pokemon_stats[:wins] %></td>
 		</tr>
 		<tr>
+			<td class="bg-primary">Percentage Wins</td>
+			<td><%= number_to_human(@pokemon_stats[:winning]) if !@pokemon_stats[:winning].nan? %>% </td>
+		</tr>
+		<tr>
 			<td class="bg-primary">Number of Loss</td>
 			<td><%= @pokemon_stats[:loss] %></td>
+		</tr>
+		<tr>
+			<td class="bg-primary">Percentage Loss</td>
+			<td><%= number_to_human(@pokemon_stats[:losing]) if !@pokemon_stats[:losing].nan? %>% </td>
+		</tr>
+		<tr>	
+			<td class="bg-primary">Most used skill</td>
+			<td>
+				<table class="table table-bordered">
+					<tr class="grass-title">
+						<td>Skill Name</td>
+						<td>Times used</td>
+					</tr>
+					<% @pokemon_stats[:skill].each do |skill| %>
+					<tr>
+						<td><%= skill[:skill].skill_name %></td>
+						<td><%= skill[:count] %></td>
+					</tr>
+					<% end %>
+				</table>
+			</td>
 		</tr>
 	</table>
 </div>
