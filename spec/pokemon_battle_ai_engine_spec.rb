@@ -161,8 +161,5 @@ describe "Pokemon Battle AI Engine Validation" do
 			pokemon_battle_sample.begin_ai_battle
 			expect(@pokemon_battle_sample.current_turn).to eq(1)
 			expect(PokemonBattleLog.count).to eq(0)
-		end
-
-
 	end
 end
