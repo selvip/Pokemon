@@ -5,6 +5,7 @@
 <% end %>
 
 <div class="col-sm-12 grass-title">
+	<%= link_to "+ New Pokedex", new_pokedex_path, class: 'btn btn-primary' %>
 	<ul class="nav nav-pills" role="tablist">
 		<% Skill::ELEMENT.each do |element| %>
 			<li><a role="presentation" data-toggle="tab" href="#<%= element %>"><%= "#{element}" %></a></li>
@@ -42,7 +43,7 @@
 			</div>
 
 			<div class="col-sm-12 grass-title">
-				<h1>Other Pokedexes</h1>
+				<h1>All Pokedexes</h1>
 				<% idx = 0 %>
 				<% element[:all_pokedexes].each do |pokedex| %>
 					<div class="col-sm-4">
@@ -68,6 +69,17 @@
 							<tr>
 								<td class="grass">Base Defence</td>
 								<td class="grass-sub"><%= pokedex[:pokedex].base_defence %> </td>
+							</tr>
+							<tr>
+								<td class="grass-sub" colspan="2">
+									<ul class="list-inline">
+										<li>
+											<%= link_to "Show", pokedex[:pokedex], class: 'btn btn-primary' %>
+										</li>
+										<li><%= link_to "Edit", edit_pokedex_path(pokedex[:pokedex]), class: 'btn btn-warning' %></li>
+										<li><%= button_to 'Delete', pokedex_path(pokedex[:pokedex]) , method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %></li>
+									</ul>
+								</td>
 							</tr>
 						</table>
 					</div>

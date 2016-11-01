@@ -5,6 +5,7 @@
 <% end %>
 
 <div class="col-sm-12 grass-title">
+	<%= link_to "+ New Skill", new_skill_path, class: 'btn btn-primary' %>
 	<ul class="nav nav-pills" role="tablist">
 		<% Skill::ELEMENT.each do |element| %>
 			<li><a role="presentation" data-toggle="tab" href="#<%= element %>"><%= "#{element}" %></a></li>
@@ -39,7 +40,7 @@
 		</div>
 
 		<div class="col-sm-12 grass-title">
-				<h1>All Pokedexes</h1>
+				<h1>All Skills</h1>
 				<% idx = 0 %>
 				<% element[:all_skills].each do |skill| %>
 					<div class="col-sm-4">
@@ -58,6 +59,17 @@
 							<tr>
 								<td class="grass">Max PP</td>
 								<td class="grass-sub"><%= skill[:skill].max_pp %> </td>
+							</tr>
+							<tr>
+								<td class="grass-sub" colspan="2">
+									<ul class="list-inline">
+										<li>
+											<%= link_to "Show", skill[:skill], class: 'btn btn-primary' %>
+										</li>
+										<li><%= link_to "Edit", edit_skill_path(skill[:skill]), class: 'btn btn-warning' %></li>
+										<li><%= button_to 'Delete', skill_path(skill[:skill]) , method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %></li>
+									</ul>
+								</td>
 							</tr>
 						</table>
 					</div>

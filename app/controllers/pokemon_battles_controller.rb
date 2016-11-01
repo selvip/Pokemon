@@ -42,7 +42,7 @@ class PokemonBattlesController < ApplicationController
 
 	def show
 		@pokemon_battle = PokemonBattle.find(params[:id])
-		@pokemon_battle_logs = @pokemon_battle.pokemon_battle_logs
+		@pokemon_battle_logs = @pokemon_battle.pokemon_battle_logs.sort_by { |h| h[:turn]}
 		get_each_pokemon
 		navigation_add("Pokemon Battle Index", pokemon_battles_path)
 		navigation_add("Pokemon Battle Show", "#")

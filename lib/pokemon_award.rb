@@ -10,7 +10,8 @@ class PokemonAward
 			from pokemon_battles, pokemons, pokedexes
 			where pokemon_battles.state = 'Finished' and pokemons.pokedex_id = pokedexes.id and pokedexes.element_type = '#{@element_type}' and pokemon_battles.pokemon_winner_id = pokemons.id
 			group by pokemons.name, pokemons.id
-			order by number_of_win desc"
+			order by number_of_win desc
+			limit 3"
 		pokemon_winners = ActiveRecord::Base.connection.execute(winning_query).to_a
 		
 		@pokemon_winners_details = []
@@ -36,7 +37,8 @@ class PokemonAward
 			from pokemon_battles, pokemons, pokedexes
 			where pokemon_battles.state = 'Finished' and pokemons.pokedex_id = pokedexes.id and pokedexes.element_type = '#{@element_type}' and pokemon_battles.pokemon_loser_id = pokemons.id
 			group by pokemons.name, pokemons.id
-			order by number_of_loss desc"
+			order by number_of_loss desc
+			limit 3"
 		pokemon_losers = ActiveRecord::Base.connection.execute(losing_query).to_a
 		
 		@pokemon_losers_details = []
@@ -62,7 +64,8 @@ class PokemonAward
 			from pokemon_battle_logs, pokemons, pokedexes
 			where pokemon_battle_logs.action_type = 'Surrender' and pokemon_battle_logs.defender_id = pokemons.id and pokemons.pokedex_id = pokedexes.id and pokedexes.element_type = '#{@element_type}'
 			group by pokemons.name, pokemons.id
-			order by surrender_number desc"
+			order by surrender_number desc
+			limit 3"
 		most_surrenders = ActiveRecord::Base.connection.execute(surrender_query).to_a
 		@surrenders = []
 		most_surrenders.each do |surrender|
@@ -79,7 +82,8 @@ class PokemonAward
 			from pokemon_battle_logs, pokemon_skills, skills
 			where pokemon_battle_logs.skill_id = pokemon_skills.id and pokemon_skills.skill_id = skills.id and skills.element_type = '#{@element_type}'
 			group by skills.id, skills,name
-			order by number_of_skills desc"
+			order by number_of_skills desc
+			limit 3"
 		most_skills = ActiveRecord::Base.connection.execute(skills_query).to_a
 		
 		@skills = []

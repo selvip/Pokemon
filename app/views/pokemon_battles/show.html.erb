@@ -93,12 +93,44 @@
 
 	<% unless @pokemon_battle.state == "Finished" %>
 	<% if @pokemon_battle.battle_type == "Me vs Me" %>
-	<table class="table table-bordered">
+		<table class="table table-bordered">
+			<tr>
+				<td>Skills</td>
+				<th>
+					<%= form_tag(pokemon_battle_attack_path(@pokemon_battle), method: 'post') do %>
+						<select class="form-control form-group" name="skill_id">
+							<% @pokemon2.pokemon_skills.each do |pokemon_skill| %>
+								<option value="<%= pokemon_skill.id %>">
+									<%= "#{pokemon_skill.skill_name} (#{pokemon_skill.current_pp}/#{pokemon_skill.skill_max_pp})" %>
+									</option>
+							<% end %>
+						</select>
+						<input type="hidden" name="attacker_id" value="<%= @pokemon2.id %>">
+				</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<ul class="list-inline">
+						<li><%= submit_tag "Attack", class: 'btn btn-danger' %></li>
+						<% end %>
+						<li>
+							<%= form_tag(pokemon_battle_surrender_path(@pokemon_battle), method: 'post') do %>
+							<%= submit_tag "Surrender", class: 'btn btn-warning' %>
+							<input type="hidden" name="surrender_id" value="<%= @pokemon2.id %>">
+							<% end %>
+						</li>
+						<li><%= (content_tag(:div, @pokemon_battle.errors.full_messages_for(:pokemon2_id).to_sentence , class: 'alert alert-danger', role: 'alert')) if !@pokemon_battle.errors.include?(:pokemon2_id).blank? %></li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+	<% else %>
+		<table class="table table-bordered">
 		<tr>
 			<td>Skills</td>
 			<th>
 				<%= form_tag(pokemon_battle_attack_path(@pokemon_battle), method: 'post') do %>
-					<select class="form-control form-group" name="skill_id">
+					<select class="form-control form-group" disabled="disabled" name="skill_id">
 						<% @pokemon2.pokemon_skills.each do |pokemon_skill| %>
 							<option value="<%= pokemon_skill.id %>">
 								<%= "#{pokemon_skill.skill_name} (#{pokemon_skill.current_pp}/#{pokemon_skill.skill_max_pp})" %>
@@ -111,11 +143,11 @@
 		<tr>
 			<td colspan="2">
 				<ul class="list-inline">
-					<li><%= submit_tag "Attack", class: 'btn btn-danger' %></li>
+					<li><%= submit_tag "Attack", disabled: 'disabled', class: 'btn btn-danger' %></li>
 					<% end %>
 					<li>
 						<%= form_tag(pokemon_battle_surrender_path(@pokemon_battle), method: 'post') do %>
-						<%= submit_tag "Surrender", class: 'btn btn-warning' %>
+						<%= submit_tag "Surrender", disabled: 'disabled', class: 'btn btn-warning' %>
 						<input type="hidden" name="surrender_id" value="<%= @pokemon2.id %>">
 						<% end %>
 					</li>
